@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import "../../styles/associe-se.css";
 
 /* ==========================================================================
    MÁSCARAS
