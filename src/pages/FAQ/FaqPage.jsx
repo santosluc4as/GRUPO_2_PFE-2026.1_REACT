@@ -5,7 +5,7 @@ import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
 
 import { FaqItem } from './FaqItem';
 import { faqData, getFilteredFaqData } from './faqData';
-import './FaqPage.css';
+import './FaqPageStyle.css';
 
 const destaques = [
   'Adesão e benefícios',
