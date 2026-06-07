@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 
 const NAV_LINKS = [
-  { href: "../index.html", label: "Início" },
-  { href: "sobre.html", label: "Sobre nós" },
-  { href: "insights.html", label: "Insights" },
-  { href: "newsletter.html", label: "Notícias" },
-  { href: "contato.html", label: "Contato" },
+  { to: "/", label: "Início" },
+  { to: "/sobre", label: "Sobre nós" },
+  { to: "/insights", label: "Insights" },
+  { to: "/newsletter", label: "Notícias" },
+  { to: "/contato", label: "Contato" },
 ];
 
 // ===== BARRA DE BUSCA GLOBAL =====
@@ -81,15 +82,15 @@ export default function Navbar() {
         <nav className="navegacao" role="navigation" aria-label="Menu principal">
 
           {/* Logo */}
-          <a href="../index.html" className="logo" aria-label="ACB - Página inicial">
+          <Link to="/" className="logo" aria-label="ACB - Página inicial">
             <img src={logo} alt="ACB - Associação de Conselheiros do Brasil" className="logo-imagem" />
-          </a>
+          </Link>
 
           {/* Links de navegação (desktop) */}
           <ul className="menu-lista" role="list">
             {NAV_LINKS.map((link) => (
-              <li key={link.href} className="menu-item">
-                <a href={link.href} className="menu-link">{link.label}</a>
+              <li key={link.to} className="menu-item">
+                <Link className="menu-link" to={link.to}>{link.label}</Link>
               </li>
             ))}
           </ul>
@@ -105,9 +106,9 @@ export default function Navbar() {
               <i className="fa-solid fa-magnifying-glass" />
             </button>
 
-            <a href="associe-se.html" className="btn-area-associados">
+            <Link to="/associe-se" className="btn-area-associados">
               Área de Associados
-            </a>
+            </Link>
 
             <button
               className="btn-menu-mobile"
@@ -132,14 +133,16 @@ export default function Navbar() {
         >
           <ul className="menu-mobile-lista" role="list">
             {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className="menu-mobile-link">{link.label}</a>
+              <li key={link.to}>
+                <Link to={link.to} className="menu-mobile-link">
+                  {link.label}
+                </Link>
               </li>
             ))}
             <li>
-              <a href="associe-se.html" className="menu-mobile-link menu-mobile-link--destaque">
+              <Link to="/associe-se" className="menu-mobile-link menu-mobile-link--destaque">
                 Área de Associados
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
