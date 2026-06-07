@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Sobre from './pages/sobre/Sobre';
+import Newsletter from './pages/newsletter/Newsletter';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -25,7 +26,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="/newsletter" element={<Home />} /> {/* ainda não implementada */}
+        <Route path="/newsletter" element={<Newsletter />} />
         
         <Route path="/contato" element={<Home />} /> {/* ainda não implementada */}
         
@@ -45,4 +46,3 @@ const App = () => {
 };
 
 export default App;
-
