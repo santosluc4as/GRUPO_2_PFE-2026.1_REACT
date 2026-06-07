@@ -5,7 +5,6 @@ import Sobre from './pages/sobre/Sobre';
 import Newsletter from './pages/newsletter/Newsletter';
 import FaqPage from './pages/FAQ/FaqPage';
 import Newsletter from './pages/newsletter/Newsletter';
-import FaqPage from './pages/FAQ/FaqPage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
