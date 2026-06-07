@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Sobre from './pages/sobre/Sobre';
 import Newsletter from './pages/newsletter/Newsletter';
+import FaqPage from './pages/FAQ/FaqPage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -34,7 +35,7 @@ const App = () => {
         
         <Route path="/sobre" element={<Sobre />} />
         
-        <Route path="/faq" element={<Home />} /> {/* ainda não implementada */}
+        <Route path="/faq" element={<FaqPage />} />
 
         <Route path="/associe-se" element={<Home />} /> {/* ainda não implementada */}
 
