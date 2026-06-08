@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Sobre from './pages/sobre/Sobre';
+import AssocieSe from './pages/associe-se/AssocieSe';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<Sobre />} />
+        <Route path="/associe-se" element={<AssocieSe />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />
@@ -19,4 +21,3 @@ const App = () => {
 };
 
 export default App;
-
