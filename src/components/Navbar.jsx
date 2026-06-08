@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import logo from "../images/logo.png";
 import { useLocation } from "react-router-dom";
 import { escaparHTML, escaparRegex } from "../utils/textUtils";
 
@@ -212,7 +213,7 @@ export default function Navbar() {
         <nav className="navegacao" role="navigation" aria-label="Menu principal">
 
           <a href="/" className="logo" aria-label="ACB - Página inicial">
-            <img src="/images/logo.png" alt="ACB - Associação de Conselheiros do Brasil" className="logo-imagem" />
+            <img src={logo} alt="ACB - Associação de Conselheiros do Brasil" className="logo-imagem" />
           </a>
 
           <ul className="menu-lista" role="list">

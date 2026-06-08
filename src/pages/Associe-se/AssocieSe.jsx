@@ -1,4 +1,4 @@
-import "./associe-se.css";
+import "../associe-se.css";
 import { useFormAdesao } from "../../hooks/useFormAdesao";
  
 const UFS = [
@@ -261,3 +261,5 @@ const AssocieSe = () => {
     </main>
   );
 };
+ 
+export default AssocieSe;

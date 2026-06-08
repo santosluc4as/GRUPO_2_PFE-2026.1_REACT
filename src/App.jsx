@@ -8,6 +8,9 @@ import FaqPage from './pages/FAQ/FaqPage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import BotaoTopo from './components/BotaoTopo';
+import Vlibras from './components/Vlibras';
+import {useBarraProgresso} from './hooks/useBarraProgresso';
 
 const App = () => {
   const { pathname } = useLocation();
