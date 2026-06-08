@@ -1,4 +1,4 @@
-import "../../styles/associe-se.css";
+import "./associe-se.css";
 import { useFormAdesao } from "../../hooks/useFormAdesao";
  
 const UFS = [

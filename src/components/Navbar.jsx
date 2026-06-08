@@ -1,33 +1,94 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import logo from "../images/logo.png";
+import { useLocation } from "react-router-dom";
+import { escaparHTML, escaparRegex } from "../utils/textUtils";
+
+const API_BASE = "https://acbrasil.org.br/cms/wp-json/wp/v2";
 
 const NAV_LINKS = [
-  { to: "/", label: "Início" },
-  { to: "/sobre", label: "Sobre nós" },
-  { to: "/insights", label: "Insights" },
-  { to: "/newsletter", label: "Notícias" },
-  { to: "/contato", label: "Contato" },
+  { href: "/", label: "Início" },
+  { href: "/sobre", label: "Sobre nós" },
+  { href: "/insights", label: "Insights" },
+  { href: "/newsletter", label: "Notícias" },
+  { href: "/contato", label: "Contato" },
 ];
 
-// ===== BARRA DE BUSCA GLOBAL =====
+// ===== BUSCA GLOBAL =====
 function BuscaOverlay({ isOpen, onClose }) {
   const [query, setQuery] = useState("");
+  const [resultados, setResultados] = useState([]);
+  const [carregando, setCarregando] = useState(false);
   const inputRef = useRef(null);
+  const debounceRef = useRef(null);
 
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 80);
+      document.body.style.overflow = "hidden";
     } else {
+      document.body.style.overflow = "";
       setQuery("");
+      setResultados([]);
     }
+    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
   useEffect(() => {
-    const handleKey = (e) => { if (e.key === "Escape") onClose(); };
+    const handleKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        isOpen ? onClose() : null;
+      }
+    };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [onClose]);
+  }, [onClose, isOpen]);
+
+  const handleInput = (e) => {
+    const termo = e.target.value;
+    setQuery(termo);
+
+    clearTimeout(debounceRef.current);
+
+    if (termo.trim().length < 2) {
+      setResultados([]);
+      return;
+    }
+
+    debounceRef.current = setTimeout(async () => {
+      setCarregando(true);
+      try {
+        const params = `search=${encodeURIComponent(termo)}&per_page=6&_fields=title,excerpt,link,type`;
+        const [posts, paginas] = await Promise.all([
+          fetch(`${API_BASE}/posts?${params}`).then((r) => r.json()),
+          fetch(`${API_BASE}/pages?${params}`).then((r) => r.json()),
+        ]);
+
+        const itens = [...posts, ...paginas].map((item) => ({
+          titulo: item.title.rendered,
+          descricao: item.excerpt?.rendered?.replace(/<[^>]*>/g, '').slice(0, 100) + '...' || '',
+          url: item.link,
+          icone: item.type === 'post' ? 'fa-newspaper' : 'fa-file',
+          tag: item.type === 'post' ? 'Notícia' : 'Página',
+        }));
+
+        setResultados(itens);
+      } catch {
+        setResultados([]);
+      } finally {
+        setCarregando(false);
+      }
+    }, 300);
+  };
+
+  const destacarTermo = (texto, termo) => {
+    if (!termo) return escaparHTML(texto);
+    const regex = new RegExp(`(${escaparRegex(termo)})`, 'gi');
+    return escaparHTML(texto).replace(
+      regex,
+      '<mark style="background:rgba(200,151,42,0.25);color:inherit;border-radius:2px;">$1</mark>'
+    );
+  };
 
   return (
     <div
@@ -57,12 +118,45 @@ function BuscaOverlay({ isOpen, onClose }) {
             placeholder="Buscar páginas, conteúdos, associados..."
             autoComplete="off"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={handleInput}
           />
         </div>
 
         <div className="busca-resultados" id="buscaResultados">
-          <p className="busca-dica">Digite para buscar páginas e conteúdos do site.</p>
+          {!query.trim() && (
+            <p className="busca-dica">Digite para buscar páginas e conteúdos do site.</p>
+          )}
+          {carregando && <p className="busca-dica">Buscando...</p>}
+          {!carregando && query.trim().length >= 2 && resultados.length === 0 && (
+            <div className="busca-sem-resultado">
+              <i className="fa-solid fa-circle-question" />
+              <p>Nenhum resultado encontrado para "<strong>{query}</strong>"</p>
+            </div>
+          )}
+          {resultados.map((item, i) => (
+            <a
+              key={i}
+              href={item.url}
+              className="busca-resultado-item"
+              style={{ animationDelay: `${i * 50}ms` }}
+              onClick={onClose}
+            >
+              <div className="busca-resultado-icone">
+                <i className={`fa-solid ${item.icone}`} />
+              </div>
+              <div className="busca-resultado-conteudo">
+                <div
+                  className="busca-resultado-titulo"
+                  dangerouslySetInnerHTML={{ __html: destacarTermo(item.titulo, query) }}
+                />
+                <div
+                  className="busca-resultado-descricao"
+                  dangerouslySetInnerHTML={{ __html: destacarTermo(item.descricao, query) }}
+                />
+              </div>
+              <span className="busca-resultado-tag">{item.tag}</span>
+            </a>
+          ))}
         </div>
       </div>
     </div>
@@ -73,46 +167,74 @@ function BuscaOverlay({ isOpen, onClose }) {
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [buscaOpen, setBuscaOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Fecha menu mobile ao trocar de rota
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
+
+  // Fecha menu ao clicar fora
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (menuOpen && !e.target.closest('#cabecalho')) setMenuOpen(false);
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [menuOpen]);
+
+  // Atalho Ctrl+K para abrir busca
+  useEffect(() => {
+    const handleKey = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setBuscaOpen((v) => !v);
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
+  const isAtivo = (href) => location.pathname === href;
 
   return (
     <>
       <BuscaOverlay isOpen={buscaOpen} onClose={() => setBuscaOpen(false)} />
 
-      <header className="cabecalho" id="cabecalho">
+      <header className={`cabecalho${scrolled ? " rolando" : ""}`} id="cabecalho">
         <nav className="navegacao" role="navigation" aria-label="Menu principal">
 
-          {/* Logo */}
-          <Link to="/" className="logo" aria-label="ACB - Página inicial">
-            <img src={logo} alt="ACB - Associação de Conselheiros do Brasil" className="logo-imagem" />
-          </Link>
+          <a href="/" className="logo" aria-label="ACB - Página inicial">
+            <img src="/images/logo.png" alt="ACB - Associação de Conselheiros do Brasil" className="logo-imagem" />
+          </a>
 
-          {/* Links de navegação (desktop) */}
           <ul className="menu-lista" role="list">
             {NAV_LINKS.map((link) => (
-              <li key={link.to} className="menu-item">
-                <Link className="menu-link" to={link.to}>{link.label}</Link>
+              <li key={link.href} className="menu-item">
+                <a
+                  href={link.href}
+                  className={`menu-link${isAtivo(link.href) ? " menu-link--ativo" : ""}`}
+                >
+                  {link.label}
+                </a>
               </li>
             ))}
           </ul>
 
-          {/* Ações da navbar */}
           <div className="navbar-acoes">
-            <button
-              className="btn-busca"
-              id="btnBusca"
-              aria-label="Abrir busca"
-              onClick={() => setBuscaOpen(true)}
-            >
+            <button className="btn-busca" aria-label="Abrir busca" onClick={() => setBuscaOpen(true)}>
               <i className="fa-solid fa-magnifying-glass" />
             </button>
-
-            <Link to="/associe-se" className="btn-area-associados">
-              Área de Associados
-            </Link>
-
+            <a href="/associe-se" className="btn-area-associados">Área de Associados</a>
             <button
               className="btn-menu-mobile"
-              id="btnMenuMobile"
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((v) => !v)}
@@ -122,31 +244,28 @@ export default function Navbar() {
               <span className="hamburguer-linha" />
             </button>
           </div>
-
         </nav>
 
         {/* Menu Mobile */}
-        <div
-          className="menu-mobile"
-          id="menuMobile"
-          aria-hidden={!menuOpen}
-        >
+        <div className={`menu-mobile${menuOpen ? " ativo" : ""}`} id="menuMobile" aria-hidden={!menuOpen}>
           <ul className="menu-mobile-lista" role="list">
             {NAV_LINKS.map((link) => (
-              <li key={link.to}>
-                <Link to={link.to} className="menu-mobile-link">
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`menu-mobile-link${isAtivo(link.href) ? " menu-link--ativo" : ""}`}
+                >
                   {link.label}
-                </Link>
+                </a>
               </li>
             ))}
             <li>
-              <Link to="/associe-se" className="menu-mobile-link menu-mobile-link--destaque">
+              <a href="/associe-se" className="menu-mobile-link menu-mobile-link--destaque">
                 Área de Associados
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
-
       </header>
     </>
   );
