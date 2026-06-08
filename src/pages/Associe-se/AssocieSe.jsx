@@ -1,10 +1,12 @@
-import "../associe-se.css";
+import "./associeSe.css";
 import { useFormAdesao } from "../../hooks/useFormAdesao";
+import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
  
 const UFS = [
   "AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG",
   "PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"
 ];
+
  
 const CATEGORIAS = [
   {
@@ -28,10 +30,12 @@ const CATEGORIAS = [
 ];
  
 const AssocieSe = () => {
+  useAnimacaoEntrada();
   const {
     form, erros, enviando, tremendo, toast,
     handleChange, handleBlur, handleSubmit, classeCampo,
   } = useFormAdesao();
+  
  
   return (
     <main className="conteudo-principal">

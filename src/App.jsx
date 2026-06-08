@@ -15,6 +15,8 @@ import {useBarraProgresso} from './hooks/useBarraProgresso';
 const App = () => {
   const { pathname } = useLocation();
 
+  useBarraProgresso();
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
   }, [pathname]);
@@ -33,6 +35,8 @@ const App = () => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
+      <BotaoTopo />   {}
+      <Vlibras />     {}
     </>
   );
 };
