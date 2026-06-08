@@ -15,7 +15,7 @@ export default function IndicadoresSection() {
     async function fetchIndicators() {
       try {
         const [hgResult, taxasResult] = await Promise.allSettled([
-          fetch('https://api.hgbrasil.com/finance?format=json-cors&key=a9410b9f').then(json),
+          fetch('https://api.hgbrasil.com/finance?format=json-cors&key=13361516').then(json),
           fetch('https://brasilapi.com.br/api/taxas/v1').then(json),
         ]);
 

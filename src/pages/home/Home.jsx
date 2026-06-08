@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
 import IndicadoresSection from './IndicadoresSection';
 import ArtigosSection from './ArtigosSection';
@@ -21,10 +22,10 @@ const Home = () => {
               profissionais que buscam impacto no conselho de administração.
             </p>
             <div className="hero-buttons">
-              <a href="/associe-se" className="btn btn--primary">
+              <Link to="/associe-se" className="btn btn--primary">
                 Seja um Associado<i className="fas fa-arrow-right" />
-              </a>
-              <a href="/noticias" className="btn btn--outline">Explore</a>
+              </Link>
+              <Link to="/newsletter" className="btn btn--outline">Explore</Link>
             </div>
           </div>
           <div className="hero-image-wrapper animacao-entrada" data-delay="2">
@@ -116,7 +117,7 @@ const Home = () => {
             Junte-se a uma rede exclusiva de profissionais, conselheiros e especialistas. Tenha
             acesso a conteúdos premium, eventos restritos e oportunidades únicas de networking.
           </p>
-          <a href="/associe-se" className="btn btn--accent btn-yellow">Seja um Associado</a>
+          <Link to="/associe-se" className="btn btn--accent btn-yellow">Seja um Associado</Link>
         </div>
       </section>
 
