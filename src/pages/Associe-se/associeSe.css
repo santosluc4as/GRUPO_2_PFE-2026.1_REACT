@@ -94,7 +94,7 @@
    -------------------------------------------------------------------------- */
 .card-etica {
   display: flex;
-  background: var(--cor-cinza-claro);
+  background: var(--cor-cinza-medio);
   border-radius: var(--raio-lg);
   overflow: hidden;
   transition: transform var(--transicao-media), box-shadow var(--transicao-media);

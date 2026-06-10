@@ -11,12 +11,14 @@ const VLibras = () => {
     document.head.appendChild(script);
 
     return () => {
+      if (document.head.contains(script)){
       document.head.removeChild(script);
+      }
     };
   }, []);
 
   return (
-    <div vw="true" className="enabled">
+    <div vw="" className="enabled">
       <div vw-access-button="true" className="active" />
       <div vw-plugin-wrapper="true">
         <div className="vw-plugin-top-wrapper" />

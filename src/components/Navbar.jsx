@@ -233,7 +233,7 @@ export default function Navbar() {
             <button className="btn-busca" aria-label="Abrir busca" onClick={() => setBuscaOpen(true)}>
               <i className="fa-solid fa-magnifying-glass" />
             </button>
-            <a href="/associe-se" className="btn-area-associados">Área de Associados</a>
+            <a href="/AssocieSe" className="btn-area-associados">Área de Associados</a>
             <button
               className="btn-menu-mobile"
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}

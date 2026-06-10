@@ -1052,7 +1052,7 @@ textarea {
 
 .rodape-direitos {
   font-size: var(--texto-xs);
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.623);
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -1069,7 +1069,7 @@ textarea {
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.623);
   transition: color var(--transicao-rapida);
 }
 
