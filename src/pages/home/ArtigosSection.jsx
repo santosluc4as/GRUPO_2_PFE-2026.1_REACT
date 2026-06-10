@@ -14,7 +14,9 @@ export default function ArtigosSection() {
   useEffect(() => {
     async function fetchArticles() {
       try {
-        const res = await fetch(`${WP_API_BASE}/posts?_embed&per_page=10&categories=20`);
+        const res = await fetch(
+          `${WP_API_BASE}/posts?_embed&per_page=3&categories=20&_fields=id,link,title,excerpt,date,_links,_embedded`
+        );
         const posts = await res.json();
         setArticles(posts?.length ? posts : []);
       } catch (_) {
