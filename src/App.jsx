@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Sobre from './pages/sobre/Sobre';
-import AssocieSe from './pages/associe-se/AssocieSe';
+import AssocieSe from './pages/Associe-se/AssocieSe';
 import Newsletter from './pages/newsletter/Newsletter';
 import Contato from './pages/contato/Contato'
 import FaqPage from './pages/FAQ/FaqPage';
@@ -10,7 +10,7 @@ import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BotaoTopo from './components/BotaoTopo';
-import Vlibras from './components/Vlibras';
+import Vlibras from './components/VLibras';
 import {useBarraProgresso} from './hooks/useBarraProgresso';
 const App = () => {
   const { pathname } = useLocation();
