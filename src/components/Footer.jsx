@@ -1,3 +1,7 @@
+//falta adicionar alguns contatos e links de redes sociais, revisar linha 7 a 33
+//falta adicionar link para politica de privacidade e cookies, linhas: 115 e 116
+import { Link } from "react-router-dom";
+
 import logo from "../images/logo.png";
 
 const REDES_SOCIAIS = [
@@ -9,17 +13,17 @@ const REDES_SOCIAIS = [
 ];
 
 const NAV_LINKS = [
-  { href: "newsletter.html", label: "Notícias" },
-  { href: "contato.html", label: "Contato" },
-  { href: "insights.html", label: "Insights" },
-  { href: "sobre.html", label: "Sobre nós" },
-  { href: "faq.html", label: "FAQ" },
+  { to: "/newsletter", label: "Notícias" },
+  { to: "/contato", label: "Contato" },
+  { to: "/insights", label: "Insights" },
+  { to: "/sobre", label: "Sobre nós" },
+  { to: "/faq", label: "FAQ" },
 ];
 
 const ASSOCIADOS_LINKS = [
-  { href: "#", label: "Torne-se Membro" },
-  { href: "#", label: "Portal Privado" },
-  { href: "#", label: "Benefícios" },
+  { to: "/associe-se", label: "Torne-se Membro" },
+  { to: "/portal-privado", label: "Portal Privado" },
+  { to: "/beneficios", label: "Benefícios" },
 ];
 
 const CONTATO_ITEMS = [
@@ -36,13 +40,13 @@ const Footer = () => {
 
         {/* Coluna de identidade */}
         <div className="rodape-identidade">
-          <a href="../index.html" className="logo logo--rodape" aria-label="ACB - Página inicial">
+          <Link to="/" className="logo logo--rodape" aria-label="ACB - Página inicial">
             <img
               src={logo}
               alt="ACB - Associação de Conselheiros do Brasil"
               className="logo-imagem logo-imagem--rodape"
             />
-          </a>
+          </Link>
           <p className="rodape-descricao">
             Transformando a governança em crescimento, confiança e futuro para as empresas brasileiras desde 2022.
           </p>
@@ -66,8 +70,8 @@ const Footer = () => {
           <h2 className="rodape-titulo-coluna">Navegação</h2>
           <ul className="rodape-lista">
             {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className="rodape-link">{link.label}</a>
+              <li key={link.to}>
+                <Link to={link.to} className="rodape-link">{link.label}</Link>
               </li>
             ))}
           </ul>
@@ -78,8 +82,8 @@ const Footer = () => {
           <h2 className="rodape-titulo-coluna">Associados</h2>
           <ul className="rodape-lista">
             {ASSOCIADOS_LINKS.map((link) => (
-              <li key={link.label}>
-                <a href={link.href} className="rodape-link">{link.label}</a>
+              <li key={link.to}>
+                <Link to={link.to} className="rodape-link">{link.label}</Link>
               </li>
             ))}
           </ul>
