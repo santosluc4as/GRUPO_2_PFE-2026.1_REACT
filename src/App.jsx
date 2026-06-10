@@ -10,7 +10,6 @@ import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BotaoTopo from './components/BotaoTopo';
-import Vlibras from './components/VLibras';
 import {useBarraProgresso} from './hooks/useBarraProgresso';
 const App = () => {
   const { pathname } = useLocation();
@@ -35,8 +34,7 @@ const App = () => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
-      <BotaoTopo />  
-      <Vlibras />   
+      <BotaoTopo />
     </>
   );
 };
