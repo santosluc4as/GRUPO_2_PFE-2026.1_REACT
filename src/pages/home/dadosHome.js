@@ -45,7 +45,7 @@ export function getFeaturedImage(post, size) {
       const sizes = media[0].media_details?.sizes;
       return sizes?.[size]?.source_url ?? media[0].source_url;
     }
-  } catch (_) {}
+  } catch { /* usa imagem de fallback */ }
   return FALLBACK_IMG;
 }
 
@@ -53,6 +53,6 @@ export function getCategory(post) {
   try {
     const terms = post._embedded['wp:term'];
     if (terms?.[0]?.[0]) return terms[0][0].name;
-  } catch (_) {}
+  } catch { /* usa categoria padrão */ }
   return 'Artigo';
 }

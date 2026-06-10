@@ -45,7 +45,7 @@ export default function IndicadoresSection() {
           } else if (!stored) {
             localStorage.setItem(PREV_KEY, JSON.stringify({ date: today, cdi, ipca, selic }));
           }
-        } catch (_) {}
+        } catch { /* ignora variação indisponível */ }
 
         setIndicators([
           {
@@ -82,7 +82,7 @@ export default function IndicadoresSection() {
 
         const now = new Date();
         setUpdateTime(now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
-      } catch (_) {
+      } catch {
         setError(true);
       }
     }

@@ -19,7 +19,7 @@ export default function ArtigosSection() {
         );
         const posts = await res.json();
         setArticles(posts?.length ? posts : []);
-      } catch (_) {
+      } catch {
         setError(true);
       }
     }
