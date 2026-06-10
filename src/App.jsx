@@ -4,6 +4,7 @@ import Home from './pages/home/Home';
 import Sobre from './pages/sobre/Sobre';
 import AssocieSe from './pages/associe-se/AssocieSe';
 import Newsletter from './pages/newsletter/Newsletter';
+import Contato from './pages/contato/Contato'
 import FaqPage from './pages/FAQ/FaqPage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Navbar from './components/Navbar';
@@ -26,7 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/newsletter" element={<Newsletter />} />
-        <Route path="/contato" element={<Home />} /> {/* ainda não implementada */}
+        <Route path="/contato" element={<Contato />} /> {/* ainda não implementada */}
         <Route path="/insights" element={<Home />} /> {/* ainda não implementada */}
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/faq" element={<FaqPage />} />
