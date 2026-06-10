@@ -117,7 +117,7 @@ const Home = () => {
             Junte-se a uma rede exclusiva de profissionais, conselheiros e especialistas. Tenha
             acesso a conteúdos premium, eventos restritos e oportunidades únicas de networking.
           </p>
-          <Link to="./AssocieSe" className="btn btn--accent btn-yellow">Seja um Associado</Link>
+          <Link to="/associe-se" className="btn btn--accent btn-yellow">Seja um Associado</Link>
         </div>
       </section>
 

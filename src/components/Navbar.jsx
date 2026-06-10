@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import logo from "../images/logo.png";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { escaparHTML, escaparRegex } from "../utils/textUtils";
 
 const API_BASE = "https://acbrasil.org.br/cms/wp-json/wp/v2";
@@ -212,19 +212,19 @@ export default function Navbar() {
       <header className={`cabecalho${scrolled ? " rolando" : ""}`} id="cabecalho">
         <nav className="navegacao" role="navigation" aria-label="Menu principal">
 
-          <a href="/" className="logo" aria-label="ACB - Página inicial">
+          <Link to="/" className="logo" aria-label="ACB - Página inicial">
             <img src={logo} alt="ACB - Associação de Conselheiros do Brasil" className="logo-imagem" />
-          </a>
+          </Link>
 
           <ul className="menu-lista" role="list">
             {NAV_LINKS.map((link) => (
               <li key={link.href} className="menu-item">
-                <a
-                  href={link.href}
+                <Link
+                  to={link.href}
                   className={`menu-link${isAtivo(link.href) ? " menu-link--ativo" : ""}`}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -233,7 +233,7 @@ export default function Navbar() {
             <button className="btn-busca" aria-label="Abrir busca" onClick={() => setBuscaOpen(true)}>
               <i className="fa-solid fa-magnifying-glass" />
             </button>
-            <a href="/AssocieSe" className="btn-area-associados">Área de Associados</a>
+            <Link to="/associe-se" className="btn-area-associados">Área de Associados</Link>
             <button
               className="btn-menu-mobile"
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
@@ -252,18 +252,18 @@ export default function Navbar() {
           <ul className="menu-mobile-lista" role="list">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
+                <Link
+                  to={link.href}
                   className={`menu-mobile-link${isAtivo(link.href) ? " menu-link--ativo" : ""}`}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
             <li>
-              <a href="/associe-se" className="menu-mobile-link menu-mobile-link--destaque">
+              <Link to="/associe-se" className="menu-mobile-link menu-mobile-link--destaque">
                 Área de Associados
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
