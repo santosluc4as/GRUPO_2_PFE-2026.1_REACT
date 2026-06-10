@@ -4,7 +4,7 @@ import Home from './pages/home/Home';
 import Sobre from './pages/sobre/Sobre';
 import AssocieSe from './pages/Associe-se/AssocieSe';
 import Newsletter from './pages/newsletter/Newsletter';
-import Contato from './pages/contato/Contato'
+import Contato from './pages/Contato/Contato';
 import FaqPage from './pages/FAQ/FaqPage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Navbar from './components/Navbar';
