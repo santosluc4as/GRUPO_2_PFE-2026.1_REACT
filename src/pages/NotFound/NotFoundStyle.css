@@ -12,30 +12,6 @@
   overflow: hidden;
 }
 
-.notfound-page::before,
-.notfound-page::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.notfound-page::before {
-  top: 110px;
-  right: -90px;
-  width: 280px;
-  height: 280px;
-  background: rgba(26, 40, 86, 0.05);
-}
-
-.notfound-page::after {
-  bottom: -120px;
-  left: -80px;
-  width: 360px;
-  height: 360px;
-  background: rgba(200, 151, 42, 0.08);
-}
-
 .notfound-hero {
   padding: calc(var(--altura-navbar) + var(--espaco-4xl)) 0 var(--espaco-4xl);
   position: relative;
