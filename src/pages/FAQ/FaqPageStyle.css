@@ -151,12 +151,10 @@
 
 .faq-search-section {
   padding-bottom: var(--espaco-lg);
-  padding-inline: var(--espaco-lg);
 }
 
 .faq-search__shell {
   background: var(--cor-branco);
-  border-radius: var(--raio-xl);
   padding: var(--espaco-xl);
 }
 
@@ -412,9 +410,6 @@
   .faq-search__shell {
     border-radius: 0px;
     padding-inline: 20px !important;
-  }
-  .faq-search-section {
-    padding-inline: 0px;
   }
 
   .container {
