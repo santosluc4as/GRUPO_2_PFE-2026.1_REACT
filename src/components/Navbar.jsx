@@ -212,8 +212,8 @@ export default function Navbar() {
       <header className={`cabecalho${scrolled ? " rolando" : ""}`} id="cabecalho">
         <nav className="navegacao" role="navigation" aria-label="Menu principal">
 
-          <Link to="/" className="logo" aria-label="ACB - Página inicial">
-            <img src={logo} alt="ACB - Associação de Conselheiros do Brasil" className="logo-imagem" />
+          <Link to="/" className="logo" aria-label="ACB - Página inicial" tabIndex={-1} aria-hidden="true">
+            <img src={logo} alt="" className="logo-imagem" />
           </Link>
 
           <ul className="menu-lista" role="list">
