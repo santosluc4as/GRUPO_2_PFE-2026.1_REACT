@@ -1,7 +1,3 @@
-/* ==========================================================================
-   FaqPage.css — Página de Perguntas Frequentes
-   ========================================================================== */
-
 .faq-page {
   background:
     radial-gradient(circle at top left, rgba(200, 151, 42, 0.10) 0, transparent 34%),
@@ -155,6 +151,7 @@
 
 .faq-search-section {
   padding-bottom: var(--espaco-lg);
+  padding-inline: var(--espaco-lg);
 }
 
 .faq-search__shell {
@@ -396,6 +393,7 @@
   .faq-support-card {
     grid-row: 2;
   }
+
 }
 
 @media (max-width: 720px) {
@@ -414,6 +412,9 @@
   .faq-search__shell {
     border-radius: 0px;
     padding-inline: 20px !important;
+  }
+  .faq-search-section {
+    padding-inline: 0px;
   }
 
   .container {
