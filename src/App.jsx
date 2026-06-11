@@ -7,6 +7,7 @@ import Newsletter from './pages/newsletter/Newsletter';
 import Contato from './pages/Contato/Contato';
 import FaqPage from './pages/FAQ/FaqPage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
+import Insights from './pages/Insights/Insights';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BotaoTopo from './components/BotaoTopo';
@@ -27,7 +28,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/newsletter" element={<Newsletter />} />
         <Route path="/contato" element={<Contato />} /> {/* ainda não implementada */}
-        <Route path="/insights" element={<Home />} /> {/* ainda não implementada */}
+        <Route path="/insights" element={<Insights />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/associe-se" element={<AssocieSe />} />

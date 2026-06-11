@@ -1,0 +1,222 @@
+import { useState, useEffect } from 'react';
+import './Insights.css';
+import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
+
+const Insights = () => {
+  const API_BASE = 'https://acbrasil.org.br/cms/wp-json/wp/v2';
+  
+  const [todosArtigos, setTodosArtigos] = useState([]);
+  const [artigosFiltrados, setArtigosFiltrados] = useState([]);
+  const [categoriaAtiva, setCategoriaAtiva] = useState('Todos');
+  const [termoBusca, setTermoBusca] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(false);
+  const [email, setEmail] = useState('');
+
+  useAnimacaoEntrada();
+
+  useEffect(() => {
+    const buscarPosts = async () => {
+      try {
+        const response = await fetch(`${API_BASE}/posts?_embed&per_page=10&categories=20`);
+        if (!response.ok) throw new Error('Falha ao buscar posts');
+        
+        const posts = await response.json();
+        const artigos = posts.map(post => ({
+          id: post.id,
+          titulo: post.title.rendered,
+          resumo: post.excerpt.rendered.replace(/<[^>]*>/g, '').slice(0, 150) + '...',
+          data: new Date(post.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(),
+          link: post.link,
+          imagem: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=800',
+          categoria: post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Geral'
+        }));
+
+        setTodosArtigos(artigos);
+        setArtigosFiltrados(artigos);
+        setLoading(false);
+      } catch (error) {
+        console.error('Erro:', error);
+        setErro(true);
+        setLoading(false);
+      }
+    };
+
+    buscarPosts();
+  }, []);
+
+  useEffect(() => {
+    let filtrados = todosArtigos;
+    if (categoriaAtiva !== 'Todos') {
+      filtrados = filtrados.filter(a => a.categoria === categoriaAtiva);
+    }
+    if (termoBusca) {
+      const termo = termoBusca.toLowerCase();
+      filtrados = filtrados.filter(a => 
+        a.titulo.toLowerCase().includes(termo) || 
+        a.resumo.toLowerCase().includes(termo)
+      );
+    }
+    setArtigosFiltrados(filtrados);
+  }, [categoriaAtiva, termoBusca, todosArtigos]);
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    if (window.exibirToast) {
+      window.exibirToast(`Sucesso! ${email} cadastrado.`, 'sucesso');
+    } else {
+      alert(`Sucesso! ${email} cadastrado.`);
+    }
+    setEmail('');
+  };
+
+  const destaque = artigosFiltrados.length > 0 && artigosFiltrados === todosArtigos ? todosArtigos[0] : null;
+  const artigosParaGrid = artigosFiltrados === todosArtigos ? todosArtigos.slice(1) : artigosFiltrados;
+
+  return (
+    <main>
+      <section className="hero-insights">
+        <div className="container container--hero">
+          <div className="hero-conteudo">
+            <span className="hero-tag animacao-entrada">Repositório Institucional</span>
+            <h1 className="hero-titulo animacao-entrada" data-delay="1">Artigos e Conhecimentos</h1>
+            <div className="hero-decoracao animacao-entrada" data-delay="2"></div>
+          </div>
+          <div className="hero-texto-intro animacao-entrada" data-delay="3">
+            <p>Explore as tendências mais recentes, pesquisas aprofundadas e análises exclusivas preparadas pelos especialistas e conselheiros da ACB Brasil para impulsionar a governança corporativa.</p>
+          </div>
+        </div>
+
+        <div className="container container--featured animacao-entrada" data-delay="4">
+          {loading ? (
+            <div className="featured-grid">
+              <div className="featured-imagem-wrapper">
+                <div className="skeleton" style={{ height: '400px', background: '#eee' }}></div>
+              </div>
+              <div className="featured-card">
+                <div className="skeleton" style={{ height: '20px', width: '100px', marginBottom: '10px' }}></div>
+                <div className="skeleton" style={{ height: '40px', marginBottom: '20px' }}></div>
+                <div className="skeleton" style={{ height: '100px', marginBottom: '20px' }}></div>
+              </div>
+            </div>
+          ) : destaque ? (
+            <div className="featured-grid">
+              <div className="featured-imagem-wrapper">
+                <img src={destaque.imagem} alt={destaque.titulo} className="featured-imagem" />
+              </div>
+              <div className="featured-card">
+                <div className="featured-header">
+                  <span className="tag-destaque">Destaque</span>
+                  <span className="featured-data">{destaque.data}</span>
+                </div>
+                <h2 className="featured-titulo" dangerouslySetInnerHTML={{ __html: destaque.titulo }}></h2>
+                <p className="featured-snippet" dangerouslySetInnerHTML={{ __html: destaque.resumo }}></p>
+                <a href={destaque.link} className="featured-link" target="_blank" rel="noopener noreferrer">Ler Artigo Completo <i className="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="secao-filtros animacao-entrada" data-delay="1">
+        <div className="container container--filtros">
+          <div className="filtros-wrapper">
+            <div className="filtros-botoes">
+              {['Todos', 'Compliance', 'Diversidade', 'Energia', 'Governança'].map(cat => (
+                <button 
+                  key={cat}
+                  className={`btn-filtro ${categoriaAtiva === cat ? 'btn-filtro--ativo' : ''}`}
+                  onClick={() => setCategoriaAtiva(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <div className="paginacao-topo">
+              <span className="pag-item pag-item--ativo">1</span>
+              <span className="pag-item">2</span>
+              <span className="pag-item">3</span>
+              <span className="pag-item pag-separador">...</span>
+              <span className="pag-item">6</span>
+              <button className="pag-item pag-proximo" aria-label="Próxima página"><i className="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+            <div className="busca-arquivo">
+              <div className="busca-arquivo-campo">
+                <i className="fa-solid fa-magnifying-glass"></i>
+                <label htmlFor="buscaArquivo" className="sr-only">Barra de busca do site</label>
+                <input 
+                  type="text" 
+                  id="buscaArquivo" 
+                  placeholder="Buscar no arquivo..."
+                  value={termoBusca}
+                  onChange={(e) => setTermoBusca(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="secao-grid animacao-entrada" data-delay="1">
+        <div className="container container--grid">
+          <div className="grid-insights">
+            {loading ? (
+              <>
+                <div className="skeleton-card" style={{ height: '300px', background: '#f5f5f5' }}></div>
+                <div className="skeleton-card" style={{ height: '300px', background: '#f5f5f5' }}></div>
+                <div className="skeleton-card" style={{ height: '300px', background: '#f5f5f5' }}></div>
+              </>
+            ) : erro ? (
+              <p className="erro-api" style={{gridColumn: "1 / -1", textAlign: "center"}}>Não foi possível carregar os artigos no momento.</p>
+            ) : artigosParaGrid.length === 0 ? (
+              <p className="sem-resultados" style={{gridColumn: "1 / -1", textAlign: "center"}}>Nenhum artigo encontrado.</p>
+            ) : (
+              artigosParaGrid.map(artigo => (
+                <article key={artigo.id} className="card-insight animacao-entrada visivel">
+                  <div className="card-imagem-wrapper">
+                    <img src={artigo.imagem} alt={artigo.titulo} className="card-imagem" />
+                  </div>
+                  <div className="card-conteudo">
+                    <span className="card-tag">{artigo.categoria.toUpperCase()}</span>
+                    <h3 className="card-titulo" dangerouslySetInnerHTML={{ __html: artigo.titulo }}></h3>
+                    <p className="card-snippet" dangerouslySetInnerHTML={{ __html: artigo.resumo }}></p>
+                    <span className="card-data">{artigo.data}</span>
+                  </div>
+                </article>
+              ))
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="secao-newsletter animacao-entrada">
+        <div className="newsletter-bg">
+          <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200" alt="Escritório desfocado" className="newsletter-img" />
+          <div className="newsletter-overlay"></div>
+        </div>
+        <div className="container container--newsletter">
+          <h2 className="newsletter-titulo">Acompanhe nossos Artigos</h2>
+          <p className="newsletter-subtitulo">Receba diretamente em seu e-mail as principais atualizações sobre governança, compliance e tendências de mercado da ACB Brasil.</p>
+
+          <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
+            <input 
+              type="email" 
+              placeholder="Seu e-mail" 
+              required 
+              className="newsletter-input" 
+              aria-label="Seu e-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button type="submit" className="newsletter-btn">INSCREVER-SE</button>
+          </form>
+          <p className="newsletter-aviso">RESPEITAMOS SUA PRIVACIDADE. CANCELE A QUALQUER MOMENTO.</p>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default Insights;
