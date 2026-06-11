@@ -13,12 +13,16 @@ const Insights = () => {
   const [erro, setErro] = useState(false);
   const [email, setEmail] = useState('');
 
+  // Paginação state
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const itensPorPagina = 6;
+
   useAnimacaoEntrada();
 
   useEffect(() => {
     const buscarPosts = async () => {
       try {
-        const response = await fetch(`${API_BASE}/posts?_embed&per_page=10&categories=20`);
+        const response = await fetch(`${API_BASE}/posts?_embed&per_page=100&categories=20`);
         if (!response.ok) throw new Error('Falha ao buscar posts');
         
         const posts = await response.json();
@@ -58,6 +62,7 @@ const Insights = () => {
       );
     }
     setArtigosFiltrados(filtrados);
+    setPaginaAtual(1); // Resetar para a primeira página ao filtrar
   }, [categoriaAtiva, termoBusca, todosArtigos]);
 
   const handleNewsletterSubmit = (e) => {
@@ -72,6 +77,12 @@ const Insights = () => {
 
   const destaque = artigosFiltrados.length > 0 && artigosFiltrados === todosArtigos ? todosArtigos[0] : null;
   const artigosParaGrid = artigosFiltrados === todosArtigos ? todosArtigos.slice(1) : artigosFiltrados;
+
+  // Lógica de paginação
+  const totalPaginas = Math.ceil(artigosParaGrid.length / itensPorPagina);
+  const indexUltimoArtigo = paginaAtual * itensPorPagina;
+  const indexPrimeiroArtigo = indexUltimoArtigo - itensPorPagina;
+  const artigosDaPagina = artigosParaGrid.slice(indexPrimeiroArtigo, indexUltimoArtigo);
 
   return (
     <main>
@@ -133,14 +144,29 @@ const Insights = () => {
               ))}
             </div>
 
-            <div className="paginacao-topo">
-              <span className="pag-item pag-item--ativo">1</span>
-              <span className="pag-item">2</span>
-              <span className="pag-item">3</span>
-              <span className="pag-item pag-separador">...</span>
-              <span className="pag-item">6</span>
-              <button className="pag-item pag-proximo" aria-label="Próxima página"><i className="fa-solid fa-arrow-right"></i></button>
-            </div>
+            {totalPaginas > 1 && (
+              <div className="paginacao-topo">
+                {Array.from({ length: totalPaginas }, (_, i) => i + 1).map(num => (
+                  <button
+                    key={num}
+                    className={`pag-item ${paginaAtual === num ? 'pag-item--ativo' : ''}`}
+                    onClick={() => setPaginaAtual(num)}
+                    style={{ border: 'none', background: paginaAtual === num ? 'var(--cor-dourado)' : 'var(--cor-cinza-claro)', cursor: 'pointer' }}
+                  >
+                    {num}
+                  </button>
+                ))}
+                <button 
+                  className="pag-item pag-proximo" 
+                  aria-label="Próxima página"
+                  onClick={() => setPaginaAtual(p => Math.min(p + 1, totalPaginas))}
+                  disabled={paginaAtual === totalPaginas}
+                  style={{ border: 'none', cursor: paginaAtual === totalPaginas ? 'not-allowed' : 'pointer' }}
+                >
+                  <i className="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            )}
 
             <div className="busca-arquivo">
               <div className="busca-arquivo-campo">
@@ -170,21 +196,29 @@ const Insights = () => {
               </>
             ) : erro ? (
               <p className="erro-api" style={{gridColumn: "1 / -1", textAlign: "center"}}>Não foi possível carregar os artigos no momento.</p>
-            ) : artigosParaGrid.length === 0 ? (
+            ) : artigosDaPagina.length === 0 ? (
               <p className="sem-resultados" style={{gridColumn: "1 / -1", textAlign: "center"}}>Nenhum artigo encontrado.</p>
             ) : (
-              artigosParaGrid.map(artigo => (
-                <article key={artigo.id} className="card-insight animacao-entrada visivel">
-                  <div className="card-imagem-wrapper">
-                    <img src={artigo.imagem} alt={artigo.titulo} className="card-imagem" />
-                  </div>
-                  <div className="card-conteudo">
-                    <span className="card-tag">{artigo.categoria.toUpperCase()}</span>
-                    <h3 className="card-titulo" dangerouslySetInnerHTML={{ __html: artigo.titulo }}></h3>
-                    <p className="card-snippet" dangerouslySetInnerHTML={{ __html: artigo.resumo }}></p>
-                    <span className="card-data">{artigo.data}</span>
-                  </div>
-                </article>
+              artigosDaPagina.map(artigo => (
+                <a 
+                  key={artigo.id} 
+                  href={artigo.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+                >
+                  <article className="card-insight animacao-entrada visivel" style={{ height: '100%' }}>
+                    <div className="card-imagem-wrapper">
+                      <img src={artigo.imagem} alt={artigo.titulo} className="card-imagem" />
+                    </div>
+                    <div className="card-conteudo">
+                      <span className="card-tag">{artigo.categoria.toUpperCase()}</span>
+                      <h3 className="card-titulo" dangerouslySetInnerHTML={{ __html: artigo.titulo }}></h3>
+                      <p className="card-snippet" dangerouslySetInnerHTML={{ __html: artigo.resumo }}></p>
+                      <span className="card-data">{artigo.data}</span>
+                    </div>
+                  </article>
+                </a>
               ))
             )}
           </div>
