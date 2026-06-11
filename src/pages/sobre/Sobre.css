@@ -41,7 +41,7 @@
   font-family: var(--fonte-texto);
   font-size: var(--texto-sm);
   font-weight: 700;
-  color: var(--cor-dourado-texto);
+  color: var(--cor-dourado);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: var(--espaco-md);
@@ -76,7 +76,7 @@
 }
 
 .mission-card i {
-  color: var(--cor-dourado-texto);
+  color: var(--cor-dourado);
   font-size: var(--texto-xl);
   margin-top: 4px;
 }
@@ -441,7 +441,7 @@
 
 .quote-author p {
   font-size: var(--texto-xs);
-  color: var(--cor-dourado-texto);
+  color: var(--cor-dourado);
   font-weight: 600;
   letter-spacing: 1px;
 }
