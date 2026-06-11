@@ -60,7 +60,7 @@ const CarrosselCitacoes = () => {
             <div className="quote-avatar">
               <img
                 src={citacao.img}
-                alt={citacao.name}
+                alt=""
                 loading="lazy"
               />
             </div>
@@ -68,7 +68,7 @@ const CarrosselCitacoes = () => {
               <i className="ph-fill ph-quotes" />
               <blockquote>{`"${citacao.quote}"`}</blockquote>
               <div className="quote-author">
-                <h4>{citacao.name}</h4>
+                <h3>{citacao.name}</h3>
                 <p>SÓCIO FUNDADOR</p>
               </div>
             </div>

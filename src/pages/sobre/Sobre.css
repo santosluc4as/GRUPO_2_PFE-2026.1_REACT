@@ -176,7 +176,7 @@
 
 .fundador-card .name {
   font-family: var(--fonte-texto);
-  font-size: 10px;
+  font-size: var(--texto-xs);
   font-weight: 700;
   color: var(--cor-azul-escuro);
   text-transform: uppercase;
@@ -185,7 +185,7 @@
 
 .fundador-card .role {
   font-family: var(--fonte-texto);
-  font-size: 8px;
+  font-size: var(--texto-xs);
   color: #4b5563; /* Cor com melhor contraste localmente na pág Sobre */
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -431,7 +431,7 @@
   z-index: 1;
 }
 
-.quote-author h4 {
+.quote-author h3 {
   font-family: var(--fonte-texto);
   font-size: var(--texto-sm);
   font-weight: 700;

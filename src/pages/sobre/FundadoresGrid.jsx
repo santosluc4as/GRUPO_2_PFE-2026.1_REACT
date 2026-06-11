@@ -20,7 +20,7 @@ const FundadoresGrid = () => {
             <div className="fundador-card" key={index}>
               <img
                 src={fundador.img}
-                alt={`Imagem do conselheiro ${fundador.nome}`}
+                alt=""
                 loading="lazy"
               />
               <h3 className="name">{fundador.nome}</h3>
