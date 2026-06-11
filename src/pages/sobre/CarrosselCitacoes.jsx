@@ -44,9 +44,11 @@ const CarrosselCitacoes = () => {
   return (
     <section className="palavra">
       <div className="container text-center">
-        <span className="subtitle animacao-entrada">PALAVRA DOS SÓCIOS</span>
-        <h2 className="title animacao-entrada">Vozes que Moldam a ACB</h2>
-        <div className="yellow-line animacao-entrada" />
+        <div className="animacao-entrada">
+          <span className="subtitle">PALAVRA DOS SÓCIOS</span>
+          <h2 className="title">Vozes que Moldam a ACB</h2>
+          <div className="yellow-line" />
+        </div>
 
         <div className="carousel-container animacao-entrada" data-delay="2">
           <div

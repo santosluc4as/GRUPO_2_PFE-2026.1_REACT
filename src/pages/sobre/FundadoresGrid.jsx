@@ -8,10 +8,12 @@ const FundadoresGrid = () => {
   return (
     <section className="fundadores">
       <div className="container">
-        <h2 className="section-title text-center animacao-entrada">
-          Nossos Fundadores
-        </h2>
-        <div className="yellow-line animacao-entrada" />
+        <div className="animacao-entrada">
+          <h2 className="section-title text-center">
+            Nossos Fundadores
+          </h2>
+          <div className="yellow-line" />
+        </div>
 
         <div className="fundadores-grid">
           {fundadores.map((fundador, index) => (
