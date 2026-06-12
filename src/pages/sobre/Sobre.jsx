@@ -1,6 +1,6 @@
 import './Sobre.css';
 import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
-import { timeUnido } from './dadosSobre';
+import { timeAcb } from './dadosSobre';
 import FundadoresGrid from './FundadoresGrid';
 import AtuacaoGrid from './AtuacaoGrid';
 import CarrosselCitacoes from './CarrosselCitacoes';
@@ -57,7 +57,7 @@ const Sobre = () => {
           </div>
           <div className="hero-image-col animacao-entrada" data-delay="3">
             <img
-              src={timeUnido}
+              src={timeAcb}
               alt="Equipe em acordo"
               loading="eager"
               decoding="async"

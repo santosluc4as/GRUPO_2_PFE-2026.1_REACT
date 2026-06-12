@@ -20,7 +20,7 @@ import sergioAraujo from '../../images/conselheiros/sergio-araujo.png';
 import telmoBauler from '../../images/conselheiros/telmo-bauler.png';
 
 // Imagem do hero
-import timeUnido from '../../images/time-unido.webp';
+import timeAcb from '../../images/time-acb.jpg';
 
 // Descrições biográficas dos conselheiros
 import {
@@ -157,4 +157,4 @@ export const areasAtuacao = [
 /* =====================================================================
    IMAGEM DO HERO
    ===================================================================== */
-export { timeUnido };
+export { timeAcb };
