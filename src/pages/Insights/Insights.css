@@ -182,7 +182,7 @@
 
 .tag-destaque {
   background: var(--cor-dourado);
-  color: var(--cor-branco);
+  color: #2B1D00;
   font-size: 10px;
   font-weight: 800;
   padding: 4px 10px;
@@ -276,7 +276,7 @@
 
 .btn-filtro--ativo {
   background: var(--cor-dourado);
-  color: var(--cor-branco);
+  color: #2B1D00;
 }
 
 .paginacao-topo {
@@ -301,12 +301,12 @@
 
 .pag-item:hover:not(.pag-separador) {
   background: var(--cor-cinza-claro);
-  color: var(--cor-dourado);
+  color: var(--cor-branco);
 }
 
 .pag-item--ativo {
   background: var(--cor-dourado);
-  color: var(--cor-branco);
+  color:  #2B1D00;
 }
 
 .pag-proximo {

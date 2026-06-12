@@ -138,7 +138,7 @@
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--cor-dourado);
+  color: rgb(122, 94, 15);
   transition: gap var(--transicao-media), opacity var(--transicao-rapida);
 }
 

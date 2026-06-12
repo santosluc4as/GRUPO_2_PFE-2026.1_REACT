@@ -20,7 +20,6 @@ const estadoInicialErros = {
 function Contato() {
   const [formData, setFormData] = useState(estadoInicialFormulario);
   const [erros, setErros] = useState(estadoInicialErros);
-  const [mensagemSucesso, setMensagemSucesso] = useState("");
 
   useAnimacaoEntrada();
 
@@ -96,19 +95,12 @@ function Contato() {
   }
 
   function handleSubmit(evento) {
+  const formularioValido = validarFormulario();
+
+  if (!formularioValido) {
     evento.preventDefault();
-
-    const formularioValido = validarFormulario();
-
-    if (!formularioValido) return;
-
-    setMensagemSucesso(
-      "Mensagem enviada com sucesso! Em breve entraremos em contato."
-    );
-
-    setFormData(estadoInicialFormulario);
-    setErros(estadoInicialErros);
   }
+}
 
   return (
     <>
@@ -238,8 +230,10 @@ function Contato() {
                 id="formulario-contato"
                 className="formulario-contato"
                 noValidate
-                onSubmit={handleSubmit}
-              >
+                action="https://formsubmit.co/devwebtms@gmail.com"
+                method="POST"
+                onSubmit={handleSubmit}>
+
                 <div className="formulario-contato__campo">
                   <label htmlFor="nome">NOME COMPLETO</label>
                   <input
@@ -341,13 +335,6 @@ function Contato() {
                   PRIVACIDADE.
                 </p>
 
-                <p
-                  id="mensagem-sucesso"
-                  className="mensagem-sucesso"
-                  aria-live="polite"
-                >
-                  {mensagemSucesso}
-                </p>
               </form>
             </section>
           </div>

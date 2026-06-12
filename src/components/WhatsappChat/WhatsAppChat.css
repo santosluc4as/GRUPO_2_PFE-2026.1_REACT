@@ -1,0 +1,111 @@
+.wa-container {
+  position: fixed;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+  right: 24px;
+  z-index: 9999;
+}
+
+.wa-message {
+  position: relative;
+  width: 260px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: fadeUp 0.3s ease;
+}
+
+.wa-message strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.wa-message p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.wa-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  font-size: 14px;
+}
+
+.wa-button {
+  width: 64px;
+  height: 64px;
+
+  border-radius: 50%;
+  background: #25d366;
+
+  color: white;
+  font-size: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+
+  animation: pulse 2s infinite;
+}
+
+.wa-button:hover {
+  transform: scale(1.08);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+  }
+
+  70% {
+    box-shadow: 0 0 0 18px rgba(37, 211, 102, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .wa-container {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .wa-message {
+    width: 220px;
+  }
+
+  .wa-button {
+    width: 58px;
+    height: 58px;
+    font-size: 30px;
+  }
+}

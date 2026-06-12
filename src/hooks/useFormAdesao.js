@@ -76,13 +76,7 @@ export const useFormAdesao = () => {
     }
 
     setEnviando(true);
-    setTimeout(() => {
-      exibirToast("Dados enviados com sucesso! Em breve entraremos em contato.", "sucesso");
-      setForm(FORM_INICIAL);
-      setErros({});
-      setTocados({});
-      setEnviando(false);
-    }, 1800);
+    e.target.submit()
   };
 
   const classeCampo = (nome) => {

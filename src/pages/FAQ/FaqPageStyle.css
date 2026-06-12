@@ -1,7 +1,3 @@
-/* ==========================================================================
-   FaqPage.css — Página de Perguntas Frequentes
-   ========================================================================== */
-
 .faq-page {
   background:
     radial-gradient(circle at top left, rgba(200, 151, 42, 0.10) 0, transparent 34%),
@@ -159,7 +155,6 @@
 
 .faq-search__shell {
   background: var(--cor-branco);
-  border-radius: var(--raio-xl);
   padding: var(--espaco-xl);
 }
 
@@ -396,6 +391,7 @@
   .faq-support-card {
     grid-row: 2;
   }
+
 }
 
 @media (max-width: 720px) {
