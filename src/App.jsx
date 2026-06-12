@@ -15,13 +15,23 @@ import BotaoTopo from './components/BotaoTopo';
 import {useBarraProgresso} from './hooks/useBarraProgresso';
 import WhatsAppChat from "./components/WhatsappChat/WhatsAppChat";
 const App = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useBarraProgresso();
 
   useEffect(() => {
+    if (hash) {
+      // Aguarda breve instante para o DOM renderizar, depois rola até o elemento
+      const timer = setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
     window.scrollTo({ top: 0, left: 0 });
-  }, [pathname]);
+  }, [pathname, hash]);
 
   return (
     <>
@@ -29,7 +39,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/newsletter" element={<Newsletter />} />
-        <Route path="/contato" element={<Contato />} /> {/* ainda não implementada */}
+        <Route path="/contato" element={<Contato />} />
         <Route path="/insights" element={<Insights />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/sobre/:slug" element={<ConselheiroPage />} />

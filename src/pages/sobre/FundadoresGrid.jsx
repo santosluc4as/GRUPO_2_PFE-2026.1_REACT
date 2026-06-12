@@ -7,7 +7,7 @@ import { fundadores } from './dadosSobre';
  */
 const FundadoresGrid = () => {
   return (
-    <section className="fundadores">
+    <section id="fundadores" className="fundadores">
       <div className="container">
         <div className="animacao-entrada">
           <h2 className="section-title text-center">

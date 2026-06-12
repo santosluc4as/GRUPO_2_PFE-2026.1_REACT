@@ -52,7 +52,7 @@ const ConselheiroPage = () => {
 
         {/* Botão de voltar */}
         <div className="conselheiro-voltar-wrapper animacao-entrada" data-delay="2">
-          <Link to="/sobre" className="conselheiro-voltar">
+          <Link to="/sobre#fundadores" className="conselheiro-voltar">
             <span aria-hidden="true">&larr;</span> TODOS OS ASSOCIADOS
           </Link>
         </div>
