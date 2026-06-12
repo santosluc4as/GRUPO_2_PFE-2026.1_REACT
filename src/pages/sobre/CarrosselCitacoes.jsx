@@ -44,9 +44,11 @@ const CarrosselCitacoes = () => {
   return (
     <section className="palavra">
       <div className="container text-center">
-        <span className="subtitle animacao-entrada">PALAVRA DOS SÓCIOS</span>
-        <h2 className="title animacao-entrada">Vozes que Moldam a ACB</h2>
-        <div className="yellow-line animacao-entrada" />
+        <div className="animacao-entrada">
+          <span className="subtitle">PALAVRA DOS SÓCIOS</span>
+          <h2 className="title">Vozes que Moldam a ACB</h2>
+          <div className="yellow-line" />
+        </div>
 
         <div className="carousel-container animacao-entrada" data-delay="2">
           <div
@@ -58,7 +60,7 @@ const CarrosselCitacoes = () => {
             <div className="quote-avatar">
               <img
                 src={citacao.img}
-                alt={citacao.name}
+                alt=""
                 loading="lazy"
               />
             </div>
@@ -66,7 +68,7 @@ const CarrosselCitacoes = () => {
               <i className="ph-fill ph-quotes" />
               <blockquote>{`"${citacao.quote}"`}</blockquote>
               <div className="quote-author">
-                <h4>{citacao.name}</h4>
+                <h3>{citacao.name}</h3>
                 <p>SÓCIO FUNDADOR</p>
               </div>
             </div>

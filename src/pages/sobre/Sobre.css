@@ -13,18 +13,6 @@
   overflow: hidden;
 }
 
-/* Curva decorativa no topo */
-.hero-wrapper::before {
-  content: '';
-  position: absolute;
-  top: -100px;
-  left: -50px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle at center, rgba(200, 151, 42, 0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  z-index: 0;
-}
 
 .hero-container {
   display: grid;
@@ -188,7 +176,7 @@
 
 .fundador-card .name {
   font-family: var(--fonte-texto);
-  font-size: 10px;
+  font-size: var(--texto-xs);
   font-weight: 700;
   color: var(--cor-azul-escuro);
   text-transform: uppercase;
@@ -197,8 +185,8 @@
 
 .fundador-card .role {
   font-family: var(--fonte-texto);
-  font-size: 8px;
-  color: var(--cor-cinza-texto);
+  font-size: var(--texto-xs);
+  color: #4b5563; /* Cor com melhor contraste localmente na pág Sobre */
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -235,7 +223,7 @@
 
 .atuacao-text-col p {
   font-size: var(--texto-sm);
-  color: var(--cor-cinza-texto);
+  color: #4b5563; /* Cor com melhor contraste localmente na pág Sobre */
   line-height: 1.7;
 }
 
@@ -281,7 +269,7 @@
 
 .card-atuacao i {
   font-size: var(--texto-xl);
-  color: var(--cor-dourado);
+  color: var(--cor-dourado-texto);
 }
 
 .card-atuacao h3 {
@@ -293,7 +281,7 @@
 
 .card-atuacao p {
   font-size: var(--texto-xs);
-  color: var(--cor-cinza-texto);
+  color: #4b5563; /* Cor com melhor contraste localmente na pág Sobre */
   line-height: 1.5;
 }
 
@@ -443,7 +431,7 @@
   z-index: 1;
 }
 
-.quote-author h4 {
+.quote-author h3 {
   font-family: var(--fonte-texto);
   font-size: var(--texto-sm);
   font-weight: 700;
