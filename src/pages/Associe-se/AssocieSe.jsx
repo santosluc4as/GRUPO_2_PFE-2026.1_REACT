@@ -114,7 +114,10 @@ const AssocieSe = () => {
                   <p className="formulario-subtitulo">Informações Cadastrais</p>
                 </div>
  
-                <form className="formulario-adesao" onSubmit={handleSubmit} noValidate>
+                <form className="formulario-adesao" onSubmit={handleSubmit} 
+                action="https://formsubmit.co/devwebtms@gmail.com"
+                method="POST"
+                noValidate>
  
                   <div className="campo-grupo campo-grupo--completo">
                     <label htmlFor="nomeCompleto" className="campo-label">Nome Completo</label>
