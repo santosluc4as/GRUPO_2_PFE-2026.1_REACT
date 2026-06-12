@@ -117,7 +117,7 @@ const CuratedTopics = ({ posts, loading }) => {
               target="_blank"
               rel="noopener noreferrer"
               className="curated__card-link"
-              style={{ marginTop: '12px', display: 'inline-block' }}
+              style={{ marginTop: '12px', display: 'inline-block', color: '#8d6a24' }}
             >
               LER MATÉRIA →
             </a>

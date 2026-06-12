@@ -41,7 +41,7 @@
   font-family: var(--fonte-texto);
   font-size: var(--texto-sm);
   font-weight: 700;
-  color: var(--cor-dourado);
+  color: rgb(122, 94, 15);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: var(--espaco-md);
