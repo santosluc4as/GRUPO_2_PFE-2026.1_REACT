@@ -12,7 +12,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BotaoTopo from './components/BotaoTopo';
 import {useBarraProgresso} from './hooks/useBarraProgresso';
-import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
+import WhatsAppChat from "./components/WhatsappChat/WhatsAppChat";
 const App = () => {
   const { pathname } = useLocation();
 
