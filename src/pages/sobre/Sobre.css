@@ -466,3 +466,142 @@
   background-color: var(--cor-dourado);
   transform: scale(1.2);
 }
+
+/* --------------------------------------------------------------------------
+    6. FUNDADOR CARD LINK RESET
+    -------------------------------------------------------------------------- */
+a.fundador-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+    7. PÁGINA DE PERFIL DO CONSELHEIRO
+    -------------------------------------------------------------------------- */
+.conselheiro-page {
+  padding-top: calc(var(--altura-navbar) + var(--espaco-2xl));
+  padding-bottom: var(--espaco-4xl);
+  background-color: var(--cor-branco);
+  min-height: 100vh;
+}
+
+.conselheiro-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--espaco-lg);
+}
+
+/* Breadcrumb */
+.conselheiro-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-xs);
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-xs);
+  margin-bottom: var(--espaco-lg);
+  flex-wrap: wrap;
+}
+
+.conselheiro-breadcrumb a {
+  color: #4b5563;
+  text-decoration: none;
+  transition: color var(--transicao-rapida);
+}
+
+.conselheiro-breadcrumb a:hover {
+  color: var(--cor-azul-escuro);
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: #9ca3af;
+  font-size: var(--texto-xs);
+}
+
+.conselheiro-breadcrumb span[aria-current="page"] {
+  color: var(--cor-azul-escuro);
+  font-weight: 600;
+}
+
+/* Título */
+.conselheiro-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-3xl);
+  color: var(--cor-azul-escuro);
+  margin-bottom: var(--espaco-3xl);
+  line-height: 1.2;
+}
+
+/* Perfil: foto + info */
+.conselheiro-perfil {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espaco-2xl);
+  align-items: start;
+  margin-bottom: var(--espaco-3xl);
+}
+
+@media (min-width: 768px) {
+  .conselheiro-perfil {
+    grid-template-columns: 220px 1fr;
+  }
+}
+
+.conselheiro-foto-wrapper {
+  width: 100%;
+  max-width: 220px;
+}
+
+.conselheiro-foto {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--raio-md);
+  background-color: var(--cor-cinza-medio);
+}
+
+/* Informações */
+.conselheiro-nome {
+  font-family: var(--fonte-titulo);
+  font-size: var(--texto-2xl);
+  color: var(--cor-azul-escuro);
+  margin-bottom: var(--espaco-lg);
+  line-height: 1.2;
+}
+
+.conselheiro-descricao {
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-base);
+  color: #374151;
+  line-height: 1.7;
+}
+
+/* Botão de voltar */
+.conselheiro-voltar-wrapper {
+  margin-top: var(--espaco-xl);
+}
+
+.conselheiro-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-sm);
+  padding: var(--espaco-sm) var(--espaco-lg);
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  color: var(--cor-azul-escuro);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid var(--cor-azul-escuro);
+  border-radius: var(--raio-sm);
+  transition: all var(--transicao-media);
+}
+
+.conselheiro-voltar:hover {
+  background-color: var(--cor-azul-escuro);
+  color: var(--cor-branco);
+}
+

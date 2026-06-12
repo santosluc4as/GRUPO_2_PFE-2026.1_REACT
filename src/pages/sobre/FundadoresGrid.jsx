@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import { fundadores } from './dadosSobre';
 
 /**
  * FundadoresGrid — Grid dos 14 sócios fundadores da ACB
- * Migrado de sobre.js (função loadGallery)
+ * Cada card é clicável e leva à página de perfil do conselheiro.
  */
 const FundadoresGrid = () => {
   return (
@@ -17,7 +18,12 @@ const FundadoresGrid = () => {
 
         <div className="fundadores-grid">
           {fundadores.map((fundador, index) => (
-            <div className="fundador-card" key={index}>
+            <Link
+              to={`/sobre/${fundador.slug}`}
+              className="fundador-card"
+              key={index}
+              aria-label={`Ver perfil de ${fundador.nomeCompleto}`}
+            >
               <img
                 src={fundador.img}
                 alt=""
@@ -25,7 +31,7 @@ const FundadoresGrid = () => {
               />
               <h3 className="name">{fundador.nome}</h3>
               <p className="role">SÓCIO FUNDADOR</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

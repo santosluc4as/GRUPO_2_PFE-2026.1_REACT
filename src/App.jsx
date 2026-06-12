@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Sobre from './pages/sobre/Sobre';
+import ConselheiroPage from './pages/sobre/ConselheiroPage';
 import AssocieSe from './pages/Associe-se/AssocieSe';
 import Newsletter from './pages/newsletter/Newsletter';
 import Contato from './pages/Contato/Contato';
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/contato" element={<Contato />} /> {/* ainda não implementada */}
         <Route path="/insights" element={<Insights />} />
         <Route path="/sobre" element={<Sobre />} />
+        <Route path="/sobre/:slug" element={<ConselheiroPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/associe-se" element={<AssocieSe />} />
         <Route path="*" element={<NotFoundPage />} />
