@@ -71,6 +71,7 @@
   box-shadow: var(--sombra-lg);
   margin-top: var(--espaco-2xl);
   display: flex;
+  align-items: center;
   gap: var(--espaco-md);
   border-radius: 0 var(--raio-md) var(--raio-md) 0;
 }
@@ -78,7 +79,6 @@
 .mission-card i {
   color: var(--cor-dourado);
   font-size: var(--texto-xl);
-  margin-top: 4px;
 }
 
 .mission-card p {
@@ -87,6 +87,7 @@
   font-weight: 600;
   color: var(--cor-azul-escuro);
   line-height: 1.5;
+  margin: 0;
 }
 
 .hero-image-col {
