@@ -51,7 +51,11 @@ const Insights = () => {
   const artigosFiltrados = useMemo(() => {
     let filtrados = todosArtigos;
     if (categoriaAtiva !== 'Todos') {
-      filtrados = filtrados.filter(a => a.categoria === categoriaAtiva);
+      const chave = categoriaAtiva.toLowerCase();
+      filtrados = filtrados.filter(a =>
+        a.titulo.toLowerCase().includes(chave) ||
+        a.resumo.toLowerCase().includes(chave)
+      );
     }
     if (termoBusca) {
       const termo = termoBusca.toLowerCase();
