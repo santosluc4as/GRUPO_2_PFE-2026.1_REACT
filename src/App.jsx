@@ -9,6 +9,7 @@ import Contato from './pages/Contato/Contato';
 import FaqPage from './pages/FAQ/FaqPage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import Insights from './pages/Insights/Insights';
+import PostDetalhe from './pages/PostDetalhe/PostDetalhe';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BotaoTopo from './components/BotaoTopo';
@@ -43,6 +44,8 @@ const App = () => {
         <Route path="/insights" element={<Insights />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/sobre/:slug" element={<ConselheiroPage />} />
+        <Route path="/artigo/:slug" element={<PostDetalhe backTo="/insights" backLabel="Artigos" />} />
+        <Route path="/newsletter/:slug" element={<PostDetalhe backTo="/newsletter" backLabel="Newsletter" />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/associe-se" element={<AssocieSe />} />
         <Route path="*" element={<NotFoundPage />} />

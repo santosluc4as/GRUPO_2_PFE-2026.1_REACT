@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
 import {
   WP_API_BASE, getFeaturedImage, getCategory,
@@ -15,7 +16,7 @@ export default function ArtigosSection() {
     async function fetchArticles() {
       try {
         const res = await fetch(
-          `${WP_API_BASE}/posts?_embed&per_page=3&categories=20&_fields=id,link,title,excerpt,date,_links,_embedded`
+          `${WP_API_BASE}/posts?_embed&per_page=3&categories=20&_fields=id,slug,title,excerpt,date,_links,_embedded`
         );
         const posts = await res.json();
         setArticles(posts?.length ? posts : []);
@@ -55,14 +56,14 @@ export default function ArtigosSection() {
           ) : (
             articles.map((post) => (
               <article key={post.id} className="article-card">
-                <a href={post.link} target="_blank" rel="noopener noreferrer" className="article-image">
+                <Link to={`/artigo/${post.slug}`} className="article-image">
                   <img src={getFeaturedImage(post, 'medium_large')} alt={decodeHtml(post.title.rendered)} loading="lazy" />
-                </a>
+                </Link>
                 <div className="article-content">
                   <span className="category">{getCategory(post)}</span>
-                  <a href={post.link} target="_blank" rel="noopener noreferrer">
+                  <Link to={`/artigo/${post.slug}`}>
                     <h3>{decodeHtml(post.title.rendered)}</h3>
-                  </a>
+                  </Link>
                   <p>{stripHtml(post.excerpt.rendered).substring(0, 150)}...</p>
                   <span className="date">{formatDatePtBR(post.date)}</span>
                 </div>

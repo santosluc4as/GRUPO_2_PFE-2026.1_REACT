@@ -90,8 +90,6 @@ function Contato() {
       ...prev,
       [name]: validarCampo(name, value),
     }));
-
-    setMensagemSucesso("");
   }
 
   function handleSubmit(evento) {

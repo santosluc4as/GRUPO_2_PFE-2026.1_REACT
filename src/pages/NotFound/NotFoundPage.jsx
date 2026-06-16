@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
 import './NotFoundStyle.css';

@@ -172,6 +172,10 @@
   min-height: 300px;
   overflow: hidden;
   border-radius: var(--raio-md);
+  background: var(--cor-branco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .curated__feature-placeholder {
@@ -184,17 +188,17 @@
 }
 
 .curated__feature-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   transition: transform var(--transicao-media);
 }
 
 .curated__feature-image:hover .curated__feature-img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .curated__feature-content {
