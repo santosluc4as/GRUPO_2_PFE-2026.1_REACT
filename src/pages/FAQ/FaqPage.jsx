@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
@@ -137,7 +137,7 @@ export default function FaqPage() {
                   </div>
 
                   <div className="faq-list">
-                    {grupo.perguntas.map((item, itemIndex) => 
+                    {grupo.perguntas.map((item) =>
                       <FaqItem
                         key={item.pergunta}
                         pergunta={item.pergunta}
