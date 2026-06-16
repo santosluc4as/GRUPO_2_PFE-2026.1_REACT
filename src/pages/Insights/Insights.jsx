@@ -22,19 +22,24 @@ const Insights = () => {
   useEffect(() => {
     const buscarPosts = async () => {
       try {
-        const response = await fetch(`${API_BASE}/posts?_embed&per_page=100&categories=20`);
+        const response = await fetch(`${API_BASE}/posts?_embed&per_page=100&categories=20,21,22,25,26,27,28,30,32,54,57,60,66,87`);
         if (!response.ok) throw new Error('Falha ao buscar posts');
-        
+
         const posts = await response.json();
-        const artigos = posts.map(post => ({
-          id: post.id,
-          slug: post.slug,
-          titulo: post.title.rendered,
-          resumo: post.excerpt.rendered.replace(/<[^>]*>/g, '').slice(0, 150) + '...',
-          data: new Date(post.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(),
-          imagem: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=800',
-          categoria: post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Geral'
-        }));
+        const artigos = posts.map(post => {
+          const terms = post._embedded?.['wp:term']?.[0] || [];
+          const subcategoria = terms.find(t => t.parent !== 0);
+          const categoria = subcategoria?.name || terms[0]?.name || 'Geral';
+          return {
+            id: post.id,
+            slug: post.slug,
+            titulo: post.title.rendered,
+            resumo: post.excerpt.rendered.replace(/<[^>]*>/g, '').slice(0, 150) + '...',
+            data: new Date(post.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(),
+            imagem: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=800',
+            categoria,
+          };
+        });
 
         setTodosArtigos(artigos);
         setLoading(false);
@@ -48,14 +53,15 @@ const Insights = () => {
     buscarPosts();
   }, []);
 
+  const categorias = useMemo(() => {
+    const unicas = [...new Set(todosArtigos.map(a => a.categoria))].sort();
+    return ['Todos', ...unicas];
+  }, [todosArtigos]);
+
   const artigosFiltrados = useMemo(() => {
     let filtrados = todosArtigos;
     if (categoriaAtiva !== 'Todos') {
-      const chave = categoriaAtiva.toLowerCase();
-      filtrados = filtrados.filter(a =>
-        a.titulo.toLowerCase().includes(chave) ||
-        a.resumo.toLowerCase().includes(chave)
-      );
+      filtrados = filtrados.filter(a => a.categoria === categoriaAtiva);
     }
     if (termoBusca) {
       const termo = termoBusca.toLowerCase();
@@ -135,16 +141,19 @@ const Insights = () => {
       <section className="secao-filtros animacao-entrada" data-delay="1">
         <div className="container container--filtros">
           <div className="filtros-wrapper">
-            <div className="filtros-botoes">
-              {['Todos', 'Compliance', 'Diversidade', 'Energia', 'Governança'].map(cat => (
-                <button 
-                  key={cat}
-                  className={`btn-filtro ${categoriaAtiva === cat ? 'btn-filtro--ativo' : ''}`}
-                  onClick={() => { setCategoriaAtiva(cat); setPaginaAtual(1); }}
-                >
-                  {cat}
-                </button>
-              ))}
+            <div className="filtros-select-wrapper">
+              <label htmlFor="filtroCategoria" className="sr-only">Filtrar por tema</label>
+              <select
+                id="filtroCategoria"
+                className="filtros-select"
+                value={categoriaAtiva}
+                onChange={e => { setCategoriaAtiva(e.target.value); setPaginaAtual(1); }}
+              >
+                {categorias.map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+              <i className="fa-solid fa-chevron-down filtros-select-icon"></i>
             </div>
 
             {totalPaginas > 1 && (
