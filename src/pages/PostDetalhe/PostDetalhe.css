@@ -78,7 +78,7 @@
 
 .post-detalhe__tag {
   background: var(--cor-dourado);
-  color: #fff;
+  color: var(--cor-azul-escuro);
   padding: 3px 12px;
   border-radius: var(--raio-full);
   font-size: var(--texto-xs);
