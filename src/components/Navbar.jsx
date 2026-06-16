@@ -27,6 +27,7 @@ function BuscaOverlay({ isOpen, onClose }) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery("");
       setResultados([]);
     }
@@ -179,6 +180,7 @@ export default function Navbar() {
 
   // Fecha menu mobile ao trocar de rota
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMenuOpen(false);
   }, [location]);
 
