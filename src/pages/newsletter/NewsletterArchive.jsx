@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { decodeHTML, formatDate, getImageUrl } from '../../hooks/useNewsletterApi';
 
 /**
@@ -210,10 +211,8 @@ const NewsletterArchive = ({
                     animation: `fadeInUp 0.4s ease ${i * 80}ms both`,
                   }}
                 >
-                  <a
-                    href={post.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    to={`/newsletter/${post.slug}`}
                     className="archive__card-link-wrapper"
                   >
                     <div className="archive__card-info">
@@ -235,7 +234,7 @@ const NewsletterArchive = ({
                         <div className="archive__card-placeholder"></div>
                       )}
                     </div>
-                  </a>
+                  </Link>
                 </article>
               );
             })

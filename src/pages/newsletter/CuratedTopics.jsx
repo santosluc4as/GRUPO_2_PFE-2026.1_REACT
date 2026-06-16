@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   decodeHTML,
   getCategoryNames,
@@ -59,14 +60,9 @@ const CuratedTopics = ({ posts, loading }) => {
                   <h3 className="curated__card-title curated__card-title--dark">
                     {title}
                   </h3>
-                  <a
-                    href={post.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="curated__card-link curated__card-link--dark"
-                  >
+                  <Link to={`/newsletter/${post.slug}`} className="curated__card-link curated__card-link--dark">
                     LER MATÉRIA →
-                  </a>
+                  </Link>
                 </div>
               );
             }
@@ -75,14 +71,9 @@ const CuratedTopics = ({ posts, loading }) => {
               <div className="curated__card" key={post.id}>
                 <span className="curated__tag">{tag.toUpperCase()}</span>
                 <h3 className="curated__card-title">{title}</h3>
-                <a
-                  href={post.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="curated__card-link"
-                >
+                <Link to={`/newsletter/${post.slug}`} className="curated__card-link">
                   LER MATÉRIA →
-                </a>
+                </Link>
               </div>
             );
           })}
@@ -112,15 +103,13 @@ const CuratedTopics = ({ posts, loading }) => {
                 </span>
               ))}
             </div>
-            <a
-              href={featurePost.link}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to={`/newsletter/${featurePost.slug}`}
               className="curated__card-link"
               style={{ marginTop: '12px', display: 'inline-block', color: '#8d6a24' }}
             >
               LER MATÉRIA →
-            </a>
+            </Link>
           </div>
         </div>
       </div>

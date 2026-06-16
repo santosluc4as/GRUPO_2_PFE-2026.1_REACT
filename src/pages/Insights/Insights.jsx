@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import './Insights.css';
 import { useAnimacaoEntrada } from '../../hooks/useAnimacaoEntrada';
 
@@ -6,7 +7,6 @@ const Insights = () => {
   const API_BASE = 'https://acbrasil.org.br/cms/wp-json/wp/v2';
   
   const [todosArtigos, setTodosArtigos] = useState([]);
-  const [artigosFiltrados, setArtigosFiltrados] = useState([]);
   const [categoriaAtiva, setCategoriaAtiva] = useState('Todos');
   const [termoBusca, setTermoBusca] = useState('');
   const [loading, setLoading] = useState(true);
@@ -28,16 +28,15 @@ const Insights = () => {
         const posts = await response.json();
         const artigos = posts.map(post => ({
           id: post.id,
+          slug: post.slug,
           titulo: post.title.rendered,
           resumo: post.excerpt.rendered.replace(/<[^>]*>/g, '').slice(0, 150) + '...',
           data: new Date(post.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(),
-          link: post.link,
           imagem: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=800',
           categoria: post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Geral'
         }));
 
         setTodosArtigos(artigos);
-        setArtigosFiltrados(artigos);
         setLoading(false);
       } catch (error) {
         console.error('Erro:', error);
@@ -49,20 +48,19 @@ const Insights = () => {
     buscarPosts();
   }, []);
 
-  useEffect(() => {
+  const artigosFiltrados = useMemo(() => {
     let filtrados = todosArtigos;
     if (categoriaAtiva !== 'Todos') {
       filtrados = filtrados.filter(a => a.categoria === categoriaAtiva);
     }
     if (termoBusca) {
       const termo = termoBusca.toLowerCase();
-      filtrados = filtrados.filter(a => 
-        a.titulo.toLowerCase().includes(termo) || 
+      filtrados = filtrados.filter(a =>
+        a.titulo.toLowerCase().includes(termo) ||
         a.resumo.toLowerCase().includes(termo)
       );
     }
-    setArtigosFiltrados(filtrados);
-    setPaginaAtual(1); // Resetar para a primeira página ao filtrar
+    return filtrados;
   }, [categoriaAtiva, termoBusca, todosArtigos]);
 
   const handleNewsletterSubmit = (e) => {
@@ -75,8 +73,9 @@ const Insights = () => {
     setEmail('');
   };
 
-  const destaque = artigosFiltrados.length > 0 && artigosFiltrados === todosArtigos ? todosArtigos[0] : null;
-  const artigosParaGrid = artigosFiltrados === todosArtigos ? todosArtigos.slice(1) : artigosFiltrados;
+  const noFilters = categoriaAtiva === 'Todos' && !termoBusca;
+  const destaque = noFilters && artigosFiltrados.length > 0 ? artigosFiltrados[0] : null;
+  const artigosParaGrid = noFilters ? artigosFiltrados.slice(1) : artigosFiltrados;
 
   // Lógica de paginação
   const totalPaginas = Math.ceil(artigosParaGrid.length / itensPorPagina);
@@ -122,7 +121,7 @@ const Insights = () => {
                 </div>
                 <h2 className="featured-titulo" dangerouslySetInnerHTML={{ __html: destaque.titulo }}></h2>
                 <p className="featured-snippet" dangerouslySetInnerHTML={{ __html: destaque.resumo }}></p>
-                <a href={destaque.link} className="featured-link" target="_blank" rel="noopener noreferrer">Ler Artigo Completo <i className="fa-solid fa-arrow-right"></i></a>
+                <Link to={`/artigo/${destaque.slug}`} className="featured-link">Ler Artigo Completo <i className="fa-solid fa-arrow-right"></i></Link>
               </div>
             </div>
           ) : null}
@@ -137,7 +136,7 @@ const Insights = () => {
                 <button 
                   key={cat}
                   className={`btn-filtro ${categoriaAtiva === cat ? 'btn-filtro--ativo' : ''}`}
-                  onClick={() => setCategoriaAtiva(cat)}
+                  onClick={() => { setCategoriaAtiva(cat); setPaginaAtual(1); }}
                 >
                   {cat}
                 </button>
@@ -177,7 +176,7 @@ const Insights = () => {
                   id="buscaArquivo" 
                   placeholder="Buscar no arquivo..."
                   value={termoBusca}
-                  onChange={(e) => setTermoBusca(e.target.value)}
+                  onChange={(e) => { setTermoBusca(e.target.value); setPaginaAtual(1); }}
                 />
               </div>
             </div>
@@ -200,11 +199,9 @@ const Insights = () => {
               <p className="sem-resultados" style={{gridColumn: "1 / -1", textAlign: "center"}}>Nenhum artigo encontrado.</p>
             ) : (
               artigosDaPagina.map(artigo => (
-                <a 
-                  key={artigo.id} 
-                  href={artigo.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
+                <Link
+                  key={artigo.id}
+                  to={`/artigo/${artigo.slug}`}
                   style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
                 >
                   <article className="card-insight animacao-entrada visivel" style={{ height: '100%' }}>
@@ -218,7 +215,7 @@ const Insights = () => {
                       <span className="card-data">{artigo.data}</span>
                     </div>
                   </article>
-                </a>
+                </Link>
               ))
             )}
           </div>
