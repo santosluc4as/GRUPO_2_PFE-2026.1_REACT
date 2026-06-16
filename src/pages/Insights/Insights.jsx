@@ -54,7 +54,9 @@ const Insights = () => {
   }, []);
 
   const categorias = useMemo(() => {
-    const unicas = [...new Set(todosArtigos.map(a => a.categoria))].sort();
+    const unicas = [...new Set(todosArtigos.map(a => a.categoria))]
+      .filter(c => c !== 'Artigos')
+      .sort();
     return ['Todos', ...unicas];
   }, [todosArtigos]);
 
@@ -83,9 +85,8 @@ const Insights = () => {
     setEmail('');
   };
 
-  const noFilters = categoriaAtiva === 'Todos' && !termoBusca;
-  const destaque = noFilters && artigosFiltrados.length > 0 ? artigosFiltrados[0] : null;
-  const artigosParaGrid = noFilters ? artigosFiltrados.slice(1) : artigosFiltrados;
+  const destaque = artigosFiltrados.length > 0 ? artigosFiltrados[0] : null;
+  const artigosParaGrid = artigosFiltrados.slice(1);
 
   // Lógica de paginação
   const totalPaginas = Math.ceil(artigosParaGrid.length / itensPorPagina);
