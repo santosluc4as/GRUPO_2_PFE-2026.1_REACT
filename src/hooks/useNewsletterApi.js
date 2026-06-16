@@ -133,11 +133,13 @@ export function useNewsletterApi() {
 
   // Efeito inicial: carregar destaques
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadCurated();
   }, [loadCurated]);
 
   // Efeito: carregar arquivo quando searchQuery muda
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadArchive(1);
   }, [searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
