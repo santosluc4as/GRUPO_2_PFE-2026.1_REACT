@@ -1,5 +1,6 @@
 /* ========================================================================== */
 /* NotFoundStyle.css — Estilos específicos da página 404                     */
+/* Mobile-first                                                               */
 /* ========================================================================== */
 
 .notfound-page {
@@ -13,7 +14,7 @@
 }
 
 .notfound-hero {
-  padding: calc(var(--altura-navbar) + var(--espaco-4xl)) 0 var(--espaco-4xl);
+  padding: calc(var(--altura-navbar) + var(--espaco-3xl)) 0 var(--espaco-3xl);
   position: relative;
   z-index: 1;
 }
@@ -23,12 +24,6 @@
   grid-template-columns: 1fr;
   gap: var(--espaco-3xl);
   align-items: center;
-}
-
-@media (min-width: 992px) {
-  .notfound-container {
-    grid-template-columns: 1.05fr 0.95fr;
-  }
 }
 
 .notfound-content {
@@ -55,14 +50,14 @@
 }
 
 .notfound-title {
-  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-size: clamp(2.4rem, 12vw, 3.4rem);
   line-height: 1.05;
   margin-bottom: var(--espaco-lg);
   letter-spacing: -0.04em;
 }
 
 .notfound-text {
-  font-size: var(--texto-lg);
+  font-size: var(--texto-base);
   color: var(--cor-cinza-texto);
   line-height: 1.8;
   margin-bottom: var(--espaco-2xl);
@@ -76,7 +71,8 @@
 }
 
 .notfound-btn {
-  min-width: 220px;
+  width: 100%;
+  min-width: 0;
 }
 
 .notfound-btn i {
@@ -121,7 +117,7 @@
   display: grid;
   place-items: center;
   font-family: var(--fonte-titulo);
-  font-size: clamp(7rem, 18vw, 11rem);
+  font-size: clamp(6rem, 28vw, 9rem);
   line-height: 1;
   letter-spacing: -0.08em;
   color: rgba(26, 40, 86, 0.08);
@@ -131,7 +127,7 @@
 .notfound-card {
   position: relative;
   width: min(100%, 460px);
-  padding: var(--espaco-2xl);
+  padding: var(--espaco-xl);
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(220, 224, 236, 0.8);
   border-radius: var(--raio-xl);
@@ -202,29 +198,38 @@
   font-size: 0.9rem;
 }
 
-@media (max-width: 767px) {
+/* ==========================================================================
+   Responsividade — Desktop (≥ 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
   .notfound-hero {
-    padding: calc(var(--altura-navbar) + var(--espaco-3xl)) 0 var(--espaco-3xl);
+    padding: calc(var(--altura-navbar) + var(--espaco-4xl)) 0 var(--espaco-4xl);
   }
 
   .notfound-title {
-    font-size: clamp(2.4rem, 12vw, 3.4rem);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
   }
 
   .notfound-text {
-    font-size: var(--texto-base);
+    font-size: var(--texto-lg);
   }
 
   .notfound-btn {
-    width: 100%;
-    min-width: 0;
+    width: auto;
+    min-width: 220px;
   }
 
   .notfound-card {
-    padding: var(--espaco-xl);
+    padding: var(--espaco-2xl);
   }
 
   .notfound-number {
-    font-size: clamp(6rem, 28vw, 9rem);
+    font-size: clamp(7rem, 18vw, 11rem);
+  }
+}
+
+@media (min-width: 992px) {
+  .notfound-container {
+    grid-template-columns: 1.05fr 0.95fr;
   }
 }

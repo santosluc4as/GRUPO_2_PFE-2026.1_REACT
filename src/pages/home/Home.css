@@ -1,6 +1,7 @@
 /* ==========================================================================
    Home.css — Estilos específicos da Home Page
    Usa os tokens definidos em index.css (global)
+   Mobile-first
    ========================================================================== */
 
 h1 {
@@ -40,7 +41,7 @@ h1 {
    ========================================================================== */
 .hero-home {
   background-color: var(--cor-branco);
-  padding: calc(var(--altura-navbar) + 6rem) 0 8rem;
+  padding: 8rem 0 6rem;
   position: relative;
   overflow: hidden;
 }
@@ -51,11 +52,12 @@ h1 {
 
 .hero-container {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 3rem;
   align-items: center;
   position: relative;
   z-index: 1;
+  text-align: center;
 }
 
 .hero-tag {
@@ -82,7 +84,7 @@ h1 {
 }
 
 .hero-home h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: 2.2rem;
   margin-bottom: 1.5rem;
   letter-spacing: -0.03em;
 }
@@ -90,7 +92,7 @@ h1 {
 .hero-content p {
   font-size: var(--texto-md);
   color: var(--cor-cinza-texto);
-  margin-bottom: 2.5rem;
+  margin: 0 auto 2.5rem;
   max-width: 580px;
   line-height: 1.7;
 }
@@ -99,6 +101,7 @@ h1 {
   display: flex;
   gap: 1.2rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .hero-image-wrapper {
@@ -107,11 +110,11 @@ h1 {
 
 .hero-image-placeholder {
   width: 100%;
-  height: 520px;
+  height: 450px;
   border-radius: var(--raio-lg);
   overflow: hidden;
   box-shadow: var(--sombra-xl);
-  transform: rotate(2deg);
+  transform: rotate(0deg);
   transition: transform var(--transicao-media);
 }
 
@@ -127,12 +130,14 @@ h1 {
 
 .hero-quote {
   position: absolute;
-  bottom: -20px;
-  left: -40px;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: var(--cor-azul-escuro);
   padding: 2.5rem;
   border-radius: var(--raio-md);
   max-width: 300px;
+  width: 80%;
   box-shadow: var(--sombra-lg);
   border-left: 6px solid var(--cor-dourado);
 }
@@ -176,8 +181,9 @@ h1 {
 
 .indicators-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
   margin-bottom: 0.5rem;
 }
 
@@ -318,8 +324,8 @@ h1 {
 
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+  grid-template-columns: 1fr;
+  gap: 2rem;
 }
 
 .article-card {
@@ -424,7 +430,7 @@ h1 {
   background-color: var(--cor-branco);
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio-lg);
-  padding: 2.5rem;
+  padding: 2rem;
   transition: all var(--transicao-media);
   display: flex;
   flex-direction: column;
@@ -555,55 +561,59 @@ h1 {
 }
 
 /* ==========================================================================
-   Responsividade
+   Responsividade — Desktop (≥ 769px)
    ========================================================================== */
-@media (max-width: 768px) {
+@media (min-width: 769px) {
+  .hero-home {
+    padding: calc(var(--altura-navbar) + 6rem) 0 8rem;
+  }
+
   .hero-container {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 3rem;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+    text-align: left;
+  }
+
+  .hero-home h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
   }
 
   .hero-content p {
-    margin: 0 auto 2.5rem;
+    margin: 0 0 2.5rem;
   }
 
   .hero-buttons {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .hero-image-placeholder {
-    height: 450px;
+    height: 520px;
+    transform: rotate(2deg);
+  }
+
+  .hero-image-placeholder:hover {
     transform: rotate(0deg);
   }
 
   .hero-quote {
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -30px;
-    width: 80%;
+    bottom: -20px;
+    left: -40px;
+    transform: none;
+    width: auto;
   }
 
   .articles-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .hero-home {
-    padding: 8rem 0 6rem;
-  }
-
-  .hero-home h1 {
-    font-size: 2.2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
   }
 
   .indicators-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 0;
   }
 
   .event-card {
-    padding: 2rem;
+    padding: 2.5rem;
   }
 }
