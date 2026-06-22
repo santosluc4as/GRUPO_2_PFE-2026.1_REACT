@@ -102,11 +102,11 @@ function Contato() {
 
   return (
     <>
-      <a href="#conteudo-principal" className="skip-link">
+    <a href="#conteudo-principal" className="skip-link skip-link--contato">
         Pular para o conteúdo principal
       </a>
 
-      <main id="conteudo-principal">
+      <main id="conteudo-principal" className="pagina-contato">
         <section
           className="hero-contato animacao-entrada"
           data-delay="1"

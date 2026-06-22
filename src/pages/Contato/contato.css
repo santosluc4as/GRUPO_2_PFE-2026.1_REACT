@@ -1,14 +1,13 @@
 /* =========================================================
    CONTATO.CSS
-   Versão desktop-first mais rígida, focada em fidelidade
-   visual com a referência.
+   Versão mobile-first
    Usa os tokens definidos em global.css
 ========================================================= */
 
 /* =========================
    ACESSIBILIDADE
 ========================= */
-.skip-link {
+.skip-link--contato {
   position: absolute;
   top: -48px;
   left: 16px;
@@ -19,15 +18,15 @@
   border-radius: var(--raio-sm);
 }
 
-.skip-link:focus {
+.skip-link--contato:focus {
   top: 10px;
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
+.pagina-contato a:focus-visible,
+.pagina-contato button:focus-visible,
+.pagina-contato input:focus-visible,
+.pagina-contato select:focus-visible,
+.pagina-contato textarea:focus-visible {
   outline: 3px solid var(--cor-dourado);
   outline-offset: 2px;
 }
@@ -38,7 +37,6 @@ textarea:focus-visible {
 .hero-contato__box,
 .contato-conteudo__container,
 .apoio-imediato__container {
-
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
@@ -49,21 +47,20 @@ textarea:focus-visible {
 /* =========================
    HERO
 ========================= */
-
 .hero-contato__box {
   position: relative;
-  min-height: 248px;
+  min-height: 220px;
   background: var(--cor-branco);
   box-shadow: var(--sombra-sm);
   overflow: hidden;
   border-bottom: 2px solid rgba(26, 40, 86, 0.06);
-  margin-top: 6%;
+  margin-top: calc(var(--altura-navbar) + 16px);
 }
 
 .hero-contato__container {
   position: relative;
   z-index: 1;
-  padding: 56px 32px 42px;
+  padding: 40px 20px 28px;
 }
 
 .hero-contato__kicker {
@@ -77,8 +74,8 @@ textarea:focus-visible {
 .hero-contato__titulo {
   margin: 0 0 14px;
   font-family: var(--fonte-titulo);
-  font-size: 3.55rem;
-  line-height: 1;
+  font-size: 2.2rem;
+  line-height: 1.05;
   color: var(--cor-azul-escuro);
 }
 
@@ -94,13 +91,13 @@ textarea:focus-visible {
    SEÇÃO PRINCIPAL
 ========================= */
 .contato-conteudo {
-  padding: 6px 0 34px;
+  padding: 20px 0 34px;
 }
 
 .contato-conteudo__container {
   display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 58px;
+  grid-template-columns: 1fr;
+  gap: 24px;
   align-items: start;
 }
 
@@ -111,7 +108,7 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  margin-left:25px;
+  margin-left: 0;
 }
 
 .info-contato {
@@ -135,9 +132,9 @@ textarea:focus-visible {
   line-height: 1.6;
 }
 
-/* Ajuste de alinhamento do Endereço */
- address.info-contato__texto{
-  display:flex;
+address.info-contato__texto {
+  display: flex;
+  align-items: flex-start;
 }
 
 .info-contato__texto p {
@@ -158,6 +155,7 @@ textarea:focus-visible {
   width: 16px;
   color: var(--cor-azul-escuro);
   margin-right: 6px;
+  flex-shrink: 0;
 }
 
 /* =========================
@@ -229,8 +227,8 @@ textarea:focus-visible {
 .formulario-contato-box {
   position: relative;
   background: var(--cor-branco);
-  padding: 20px 24px 20px;
-  min-height: 396px;
+  padding: 20px 18px;
+  min-height: auto;
   box-shadow: var(--sombra-sm);
 }
 
@@ -261,7 +259,9 @@ textarea:focus-visible {
   letter-spacing: 0.12em;
 }
 
-.formulario-contato__campo input, .formulario-contato__campo select, .formulario-contato__campo textarea {
+.formulario-contato__campo input,
+.formulario-contato__campo select,
+.formulario-contato__campo textarea {
   width: 100%;
   border: none;
   border-bottom: 1px solid var(--cor-borda);
@@ -273,7 +273,9 @@ textarea:focus-visible {
   transition: border-color var(--transicao-media);
 }
 
-.formulario-contato__campo input:focus, .formulario-contato__campo select:focus, .formulario-contato__campo textarea:focus {
+.formulario-contato__campo input:focus,
+.formulario-contato__campo select:focus,
+.formulario-contato__campo textarea:focus {
   border-color: var(--cor-azul-medio);
   outline: none;
 }
@@ -284,11 +286,12 @@ textarea:focus-visible {
 }
 
 .formulario-contato__campo textarea {
-  min-height: 84px;
+  min-height: 110px;
   resize: vertical;
 }
 
-.formulario-contato__campo input::placeholder, .formulario-contato__campo textarea::placeholder {
+.formulario-contato__campo input::placeholder,
+.formulario-contato__campo textarea::placeholder {
   color: var(--cor-cinza-texto);
   opacity: 0.6;
 }
@@ -308,9 +311,10 @@ textarea:focus-visible {
   justify-content: center;
   gap: 10px;
   cursor: pointer;
-  transition: background var(--transicao-media),
-              transform var(--transicao-rapida),
-              box-shadow var(--transicao-media);
+  transition:
+    background var(--transicao-media),
+    transform var(--transicao-rapida),
+    box-shadow var(--transicao-media);
 }
 
 .formulario-contato__enviar:hover {
@@ -348,18 +352,18 @@ textarea:focus-visible {
 ========================= */
 .apoio-imediato {
   background: var(--cor-cinza-claro);
-  padding: 52px 0 58px;
+  padding: 40px 0 46px;
 }
 
 .apoio-imediato__header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .apoio-imediato__titulo {
   margin: 0;
   font-family: var(--fonte-titulo);
-  font-size: 2.55rem;
+  font-size: 2rem;
   color: var(--cor-azul-escuro);
   line-height: 1.08;
 }
@@ -375,7 +379,7 @@ textarea:focus-visible {
 
 .apoio-imediato__cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 18px;
   max-width: 900px;
   margin: 0 auto;
@@ -428,28 +432,78 @@ textarea:focus-visible {
 }
 
 /* =========================
-   RESPONSIVIDADE
+   TABLET
 ========================= */
-@media (max-width: 980px) {
-  .contato-conteudo__container {
-    grid-template-columns: 1fr;
-    gap: 30px;
+@media (min-width: 769px) {
+  .hero-contato__box {
+    min-height: 248px;
+    margin-top: calc(var(--altura-navbar) + 20px);
+  }
+
+  .hero-contato__container {
+    padding: 48px 24px 36px;
+  }
+
+  .hero-contato__titulo {
+    font-size: 2.8rem;
+  }
+
+  .formulario-contato-box {
+    padding: 20px 24px 20px;
+  }
+
+  .apoio-imediato__titulo {
+    font-size: 2.3rem;
   }
 
   .apoio-imediato__cards {
-    grid-template-columns: 1fr;
     max-width: 520px;
   }
 }
 
-@media (max-width: 760px) {
+/* =========================
+   DESKTOP
+========================= */
+@media (min-width: 1025px) {
+  .hero-contato__box {
+    margin-top: 6%;
+  }
 
   .hero-contato__container {
-    padding: 48px 24px 36px;
-    margin-top:40px;
+    padding: 56px 32px 42px;
   }
 
   .hero-contato__titulo {
-    font-size: 2.4rem;
+    font-size: 3.55rem;
+  }
+
+  .contato-conteudo {
+    padding: 6px 0 34px;
+  }
+
+  .contato-conteudo__container {
+    grid-template-columns: 420px 1fr;
+    gap: 58px;
+  }
+
+  .contato-conteudo__info {
+    margin-left: 25px;
+  }
+
+  .formulario-contato-box {
+    min-height: 396px;
+  }
+
+  .apoio-imediato {
+    padding: 52px 0 58px;
+  }
+
+  .apoio-imediato__titulo {
+    font-size: 2.55rem;
+  }
+
+  .apoio-imediato__cards {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 900px;
   }
 }
